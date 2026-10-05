@@ -8,7 +8,7 @@ The short version: **the app never sends your music, your projects or anything a
 
 ## 1. The website
 
-- **Social media.** If you follow us on Instagram, Facebook, X or Reddit, or join our Discord server, those platforms handle your information under their own privacy policies. We only see what they show us, such as your public profile or your messages on our server.
+- **Social media.** If you follow us on Instagram, Facebook, X, Reddit or YouTube, or join our Discord server, those platforms handle your information under their own privacy policies. We only see what they show us, such as your public profile or your messages on our server.
 - **Messages.** If you write to us through the contact form on our website, we receive your name, country, email address, phone number (if you give it) and your message. The form delivers them to our email inbox through Web3Forms, a form delivery service (or, if that service is unavailable, through Netlify Forms). If you write to us by email or WhatsApp, we receive your message and contact details. In every case we use them only to answer you, and you can ask us to delete them at any time.
 - **Hosting.** The website is hosted by Netlify, which records basic technical data about each visit (such as IP address, browser and time) for security and to keep the service running.
 - The website has no analytics, no advertising and no tracking cookies.

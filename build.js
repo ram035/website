@@ -197,10 +197,10 @@ function icon(name) {
 }
 
 // Gavna's social profiles (site.json: site.instagram, site.discord, site.facebook,
-// site.x, site.reddit). Only the ones with a link are shown, in this order; to add
+// site.x, site.reddit, site.youtube). Only the ones with a link are shown, in this order; to add
 // a network, add its icon to src/img/icons, a line here, and its key to site.json
 // and to LABELS in admin/admin.js.
-const SOCIALS = [['instagram', 'Instagram'], ['discord', 'Discord'], ['facebook', 'Facebook'], ['x', 'X'], ['reddit', 'Reddit']];
+const SOCIALS = [['instagram', 'Instagram'], ['discord', 'Discord'], ['facebook', 'Facebook'], ['x', 'X'], ['reddit', 'Reddit'], ['youtube', 'YouTube']];
 function socialLinks(c, cls) {
   const s = c.site;
   return `<div class="${cls}">${SOCIALS.map(([key, name]) => [key, name, s[key]])

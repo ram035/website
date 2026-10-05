@@ -195,7 +195,7 @@ const BLOCKS = {
 
   social: {
     label: 'Redes sociales', icon: '@', group: 'Texto',
-    desc: 'Un texto y los botones de las redes sociales que tengan link (Instagram, Discord, Facebook, X y Reddit).',
+    desc: 'Un texto y los botones de las redes sociales que tengan link (Instagram, Discord, Facebook, X, Reddit y YouTube).',
     fields: [{ key: 'text', label: 'Texto', type: 'text' }],
     defaults: { text: L('Follow Gavna for news and updates.', 'Sigue a Gavna para novedades.') }
   },
