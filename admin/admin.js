@@ -747,7 +747,7 @@
   ];
   var LABELS = {
     name: 'Nombre', url: 'Dirección del sitio', email: 'Email', phoneDisplay: 'Teléfono (como se muestra)', whatsapp: 'Link de WhatsApp',
-    instagram: 'Link de Instagram', discord: 'Link de Discord', facebook: 'Link de Facebook', x: 'Link de X', reddit: 'Link de Reddit', legalName: 'Nombre legal', country: 'País', tagline: 'Lema (en el pie) / subtítulo (en el menú Productos)',
+    instagram: 'Link de Instagram', discord: 'Link de Discord', facebook: 'Link de Facebook', x: 'Link de X', reddit: 'Link de Reddit', youtube: 'Link de YouTube', legalName: 'Nombre legal', country: 'País', tagline: 'Lema (en el pie) / subtítulo (en el menú Productos)',
     description: 'Descripción', contactFormKey: 'Clave de Web3Forms del formulario de contacto (vacía = los mensajes quedan en Netlify → Forms)',
     products: 'Nombre del menú de productos', links: 'Links del menú (también aparecen en el pie, bajo "Gavna")', label: 'Texto', link: 'Lleva a',
     price: 'Precio (solo el número)', currency: 'Moneda', storeUrl: 'Link de Microsoft Store (vacío = no aparece "Descargar")',
