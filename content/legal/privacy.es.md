@@ -8,7 +8,7 @@ La versión corta: **la aplicación nunca envía tu música, tus proyectos ni na
 
 ## 1. El sitio web
 
-- **Redes sociales.** Si nos sigues en Instagram o te unes a nuestro servidor de Discord, esas plataformas gestionan tu información bajo sus propias políticas de privacidad. Solo vemos lo que nos muestran, como tu perfil público o tus mensajes en nuestro servidor.
+- **Redes sociales.** Si nos sigues en Instagram, Facebook, X o Reddit, o te unes a nuestro servidor de Discord, esas plataformas gestionan tu información bajo sus propias políticas de privacidad. Solo vemos lo que nos muestran, como tu perfil público o tus mensajes en nuestro servidor.
 - **Mensajes.** Si nos escribes a través del formulario de contacto de nuestro sitio web, recibimos tu nombre, país, dirección de correo electrónico, número de teléfono (si lo proporcionas) y tu mensaje. El formulario los entrega en nuestra bandeja de entrada a través de Web3Forms (o Netlify Forms si el primero no está disponible). Si nos escribes por correo electrónico o WhatsApp, recibimos tu mensaje y datos de contacto. En todos los casos los utilizamos únicamente para responderte, y puedes pedirnos que los eliminemos en cualquier momento.
 - **Alojamiento.** El sitio web está alojado en Netlify, que registra datos técnicos básicos de cada visita (como la dirección IP, el navegador y la fecha/hora) por motivos de seguridad y para mantener el servicio en funcionamiento.
 - El sitio web no utiliza analíticas, publicidad ni cookies de seguimiento.
