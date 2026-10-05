@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /sent/
+Disallow: /es/sent/
+Disallow: /purchased/
+Disallow: /es/purchased/
+Sitemap: https://gavna.digital/sitemap.xml

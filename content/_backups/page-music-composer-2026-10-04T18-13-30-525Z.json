@@ -1,0 +1,721 @@
+{
+  "path": "music-composer",
+  "title": {
+    "en": "Gavna Music Composer — Time to complete your music projects",
+    "es": "Gavna Music Composer — Hora de completar tus proyectos musicales"
+  },
+  "description": {
+    "en": "A songwriting workspace for chord progressions: chords, scales and melody in the same slots, theory-based suggestions, and drag-and-drop MIDI to your DAW.",
+    "es": "Un espacio de trabajo para componer progresiones: acordes, escalas y melodía en los mismos slots, sugerencias basadas en teoría musical y MIDI directo a tu DAW."
+  },
+  "image": {
+    "en": "img/music-composer/en-1-memory-bank.jpg",
+    "es": "img/music-composer/es-1-memory-bank.jpg"
+  },
+  "blocks": [
+    {
+      "id": "b580hv",
+      "type": "productbar",
+      "hidden": false,
+      "style": {
+        "fontTitle": "jetbrains-mono"
+      },
+      "props": {
+        "name": "Gavna Music Composer",
+        "logo": {
+          "en": "img/music-composer-logo.svg",
+          "es": "img/music-composer-logo.svg"
+        },
+        "logoLink": "page:music-composer",
+        "links": [
+          {
+            "label": {
+              "en": "Features",
+              "es": "Funciones"
+            },
+            "link": "#features"
+          },
+          {
+            "label": {
+              "en": "Pricing",
+              "es": "Precio"
+            },
+            "link": "#pricing"
+          },
+          {
+            "label": {
+              "en": "FAQ",
+              "es": "Preguntas"
+            },
+            "link": "#faq"
+          }
+        ],
+        "button": true
+      }
+    },
+    {
+      "id": "b65zvr",
+      "type": "hero",
+      "hidden": false,
+      "style": {
+        "fontTitle": "jetbrains-mono",
+        "fontSize": "s",
+        "border": false
+      },
+      "props": {
+        "layout": "center",
+        "eyebrow": {
+          "en": "Songwriting software for Windows",
+          "es": "Software de composición para Windows"
+        },
+        "title": {
+          "en": "Distraction-free creative workflow for songwriters",
+          "es": "Entorno creativo sin barreras para compositores"
+        },
+        "text": {
+          "en": "A tool made with the purpose of finishing your songs, not adding more features.",
+          "es": "La herramienta que se hizo con el propósito de terminar tus canciones, no de sumar más funciones"
+        },
+        "buttons": [
+          {
+            "label": {
+              "en": "",
+              "es": ""
+            },
+            "link": "store:",
+            "style": "red"
+          },
+          {
+            "label": {
+              "en": "",
+              "es": ""
+            },
+            "link": "buy:",
+            "style": "ghost"
+          },
+          {
+            "label": {
+              "en": "See the features",
+              "es": "Ver funciones"
+            },
+            "link": "#features",
+            "style": "ghost"
+          }
+        ],
+        "note": {
+          "en": "US$49 one-time · 15-day free trial",
+          "es": "US$49 pago único · 15 días de prueba gratis"
+        },
+        "media": "image",
+        "lottie": "",
+        "glow": false,
+        "image": {
+          "en": "img/uploads/eng-memory-bank.jpg",
+          "es": "img/uploads/esp-banco-de-memoria.jpg"
+        }
+      }
+    },
+    {
+      "id": "b7k352",
+      "type": "stats",
+      "hidden": false,
+      "style": {
+        "fontTitle": "jetbrains-mono"
+      },
+      "props": {
+        "items": [
+          {
+            "value": "6",
+            "label": {
+              "en": "interconnected modules with precise functions to accelerate and elevate your creative process.",
+              "es": "módulos interconectados con las funciones exactas para acelerar tu proceso creativo"
+            }
+          },
+          {
+            "value": "16",
+            "label": {
+              "en": "slots with piano rolls for chords, scales and melody notes",
+              "es": "casilleros con piano rolls para notas de acorde, escala y melodía"
+            }
+          },
+          {
+            "value": "73",
+            "label": {
+              "en": "scales matched to each chord",
+              "es": "escalas según cada acorde"
+            }
+          },
+          {
+            "value": "20",
+            "label": {
+              "en": "music theory-based arrangement techniques, including suggestions for mood and character variations",
+              "es": "técnicas de arreglo basadas en teoría musical, incluyendo sugerencias de variación de estado de ánimo y carácter "
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "b8a50z",
+      "type": "feature",
+      "hidden": false,
+      "style": {
+        "anchor": "features",
+        "fontTitle": "jetbrains-mono"
+      },
+      "props": {
+        "side": "right",
+        "kicker": {
+          "en": "Memory Bank",
+          "es": "Banco de memoria"
+        },
+        "title": {
+          "en": "Compose your way, starting anywhere",
+          "es": "Compone a tu manera, empezando desde donde quieras"
+        },
+        "text": {
+          "en": "Some songwriters start with chords to find the melody. Others begin with a melodic spark and build around it. Gavna Music Composer seamlessly supports both workflows. The Memory Bank is your space to craft the song’s blueprint before taking it to your DAW or instrument.\"\n\nES: \"Algunos compositores empiezan con acordes para encontrar la melodía. Otros parten de una chispa melódica y construyen a su alrededor. Gavna Music Composer se adapta a ambos flujos de trabajo. El Banco de Memoria es tu espacio para trazar los cimientos de la canción antes de llevarla a tu DAW o instrumento.",
+          "es": "Ciertos compositores dan forma a sus canciones desde la arquitectura de los acordes, dejando que la melodía nazca de la armonía. Otros trabajan a la inversa, esculpiendo todo alrededor de una chispa de inspiración melódica. Gavna Music Composer te otorga el espacio para componer de ambos modos. El Banco de Memoria es el taller donde construyes la base de tu obra antes de desplegarla en tu DAW o instrumento."
+        },
+        "bullets": [
+          {
+            "text": {
+              "en": "8 or 16 slots to input or import (via MIDI) chords and melodies",
+              "es": "8 o 16 slots para ingresar o importar (via MIDI) acordes y melodías."
+            }
+          },
+          {
+            "text": {
+              "en": "2/4 - 3/4 - 4/4 - 5/4 time signatures",
+              "es": "Compases 2/4 - 3/4 - 4/4 - 5/4"
+            }
+          },
+          {
+            "text": {
+              "en": "Draw a melody on a 4 or 8 step grid with zoom",
+              "es": "Dibuja la melodía en una grilla de 4 u 8 pasos con zoom"
+            }
+          },
+          {
+            "text": {
+              "en": "Fully toggleable visibility for chords and/or melodies (together or separately)",
+              "es": "Visibilidad de acordes y/o melodías totalmente alternable (juntas o por separado)"
+            }
+          }
+        ],
+        "image": {
+          "en": "img/uploads/eng-memory-bank.jpg",
+          "es": "img/uploads/esp-banco-de-memoria.jpg"
+        },
+        "zoom": true
+      }
+    },
+    {
+      "id": "b9viaq",
+      "type": "feature",
+      "hidden": false,
+      "style": {
+        "fontTitle": "jetbrains-mono"
+      },
+      "props": {
+        "side": "left",
+        "kicker": {
+          "en": "Scale Module",
+          "es": "Módulo de Escalas"
+        },
+        "title": {
+          "en": "The bridge between your harmony and melody",
+          "es": "El puente entre tu armonía y tu melodía"
+        },
+        "text": {
+          "en": "The Scale Module is the bridge between harmony and melody. Instantly discover compatible scales for any chord and map out the exact notes to craft your melodic lines.",
+          "es": "El Módulo de Escalas es el puente entre la armonía y la melodía. Descubre al instante todas las escalas compatibles con tu acorde y visualiza el mapa de notas perfecto para componer tus líneas melódicas"
+        },
+        "bullets": [
+          {
+            "text": {
+              "en": "73 scales, from Dorian to Hungarian minor",
+              "es": "73 escalas, del dórico a la menor húngara"
+            }
+          },
+          {
+            "text": {
+              "en": "Instant scale matching: Select a chord in the Memory Bank to unlock direct and exotic relative scales.",
+              "es": "Detección de escalas: Selecciona un acorde en el Banco de Memoria para revelar sus escalas directas y alternativas exóticas."
+            }
+          }
+        ],
+        "image": {
+          "en": "img/uploads/eng-scale-module.jpg",
+          "es": "img/uploads/esp-modulo-de-escalas.jpg"
+        },
+        "zoom": true
+      }
+    },
+    {
+      "id": "baafft",
+      "type": "feature",
+      "hidden": false,
+      "style": {
+        "fontText": "",
+        "fontTitle": "jetbrains-mono"
+      },
+      "props": {
+        "side": "right",
+        "kicker": {
+          "en": "Chord Module",
+          "es": "Módulo de Acordes"
+        },
+        "title": {
+          "en": "Discover and connect your ideal chords",
+          "es": "Encuentra y conecta los acordes ideales"
+        },
+        "text": {
+          "en": "Mark a group as the Reference and rebuild it with 20 arrangement techniques in five families — Energy, Distance, Closure, Variation and Color: applied dominants, modal borrowing, tritone substitution, deceptive endings and more. Every technique starts again from the Reference, so you can try them all.",
+          "es": "Marca un grupo como Referencia y reármalo con 20 técnicas de arreglo en cinco familias —Energía, Distancia, Cierre, Variación y Color—: dominantes secundarias, préstamo modal, sustitución tritonal, cadencias rotas y más. Cada técnica arranca de nuevo desde la Referencia, así puedes probarlas todas."
+        },
+        "bullets": [
+          {
+            "text": {
+              "en": "Contextual suggestions: Find next chords or ideal substitutions.",
+              "es": "Sugerencias contextuales: Encuentra el siguiente acorde o sustituto ideal."
+            }
+          },
+          {
+            "text": {
+              "en": "Mood-based filtering: Filter chords by emotional character.",
+              "es": "Filtro por intención: Navega acordes según su intención emocional."
+            }
+          },
+          {
+            "text": {
+              "en": "Scale lock & transposition: Lock or transpose suggestions to your key.",
+              "es": "Bloqueo de escala y transposición: Ajusta o transpón sugerencias a tu tonalidad."
+            }
+          }
+        ],
+        "image": {
+          "en": "img/uploads/eng-chord-module.jpg",
+          "es": "img/uploads/esp-modulo-de-acordes.jpg"
+        },
+        "zoom": true
+      }
+    },
+    {
+      "id": "bb5d04",
+      "type": "feature",
+      "hidden": false,
+      "style": {
+        "fontTitle": "jetbrains-mono"
+      },
+      "props": {
+        "side": "left",
+        "kicker": {
+          "en": "Keyboard",
+          "es": "Teclado"
+        },
+        "title": {
+          "en": "Detección instantánea de acordes al tocar",
+          "es": "Instant chord detection as you play"
+        },
+        "text": {
+          "en": "Instantly identify chords—exact or partial—right from the keyboard and send any result to a Memory Bank slot.",
+          "es": "Identifica acordes al instante —exactos o parciales— directamente desde el teclado y transfiere cualquier resultado a un slot del Banco de Memoria."
+        },
+        "bullets": [
+          {
+            "text": {
+              "en": "Chord recognition from any set of notes",
+              "es": "Reconoce el acorde de cualquier grupo de notas"
+            }
+          },
+          {
+            "text": {
+              "en": "Realistic grand piano sound with smooth voice leading",
+              "es": "Sonido de piano de cola realista con conducción de voces suave"
+            }
+          },
+          {
+            "text": {
+              "en": "Direct connection: Send your preferred chord straight to the Memory Bank.",
+              "es": "Conexión directa: Envía el acorde seleccionado directamente a tu Banco de Memoria."
+            }
+          }
+        ],
+        "image": {
+          "en": "img/uploads/eng-keyboard.jpg",
+          "es": "img/uploads/esp-teclado.jpg"
+        },
+        "zoom": true
+      }
+    },
+    {
+      "id": "bu0rhrktp",
+      "type": "feature",
+      "hidden": false,
+      "style": {
+        "fontTitle": "jetbrains-mono"
+      },
+      "props": {
+        "side": "right",
+        "kicker": {
+          "en": "Library",
+          "es": "Biblioteca"
+        },
+        "title": {
+          "en": "Complete Chord Library",
+          "es": "Librería de acordes completa"
+        },
+        "text": {
+          "en": "",
+          "es": ""
+        },
+        "bullets": [
+          {
+            "text": {
+              "en": "Browse & search: Easily filter by root note, chord type, or search bar.",
+              "es": "Navegación y búsqueda: Filtra fácilmente por tónica, tipo de acorde o buscador."
+            }
+          },
+          {
+            "text": {
+              "en": "One-click transfer: Send any chord straight into your sequence.",
+              "es": "Transferencia a un clic: Envía cualquier acorde directo a tu secuencia."
+            }
+          }
+        ],
+        "image": {
+          "en": "img/uploads/eng-library.jpg",
+          "es": "img/uploads/esp-biblioteca.jpg"
+        },
+        "zoom": true
+      }
+    },
+    {
+      "id": "by32axywo",
+      "type": "feature",
+      "hidden": false,
+      "style": {
+        "fontTitle": "jetbrains-mono"
+      },
+      "props": {
+        "side": "right",
+        "kicker": {
+          "en": "Progression Module",
+          "es": "Módulo de Progresiones"
+        },
+        "title": {
+          "en": "Title here",
+          "es": "Titulo aqui"
+        },
+        "text": {
+          "en": "Build, transform, and export full chord progressions using real-time atmospheric variations.",
+          "es": "Construye, transforma y exporta progresiones de acordes completas aplicando variaciones de atmósfera en tiempo real."
+        },
+        "bullets": [
+          {
+            "text": {
+              "en": "Load chords from the Memory Bank or enter them directly via keyboard.",
+              "es": "Carga acordes desde el Banco de Memoria o escríbelos directamente desde el teclado"
+            }
+          },
+          {
+            "text": {
+              "en": "Design a reference group and build up to three variation groups.",
+              "es": "Diseña un grupo de referencia y genera hasta tres grupos de variación."
+            }
+          },
+          {
+            "text": {
+              "en": "Select an emotional character to transform your progression's behavior.",
+              "es": "Selecciona el carácter emocional para transformar el comportamiento de tu progresión."
+            }
+          },
+          {
+            "text": {
+              "en": "Direct MIDI export: Drag and drop your progression directly into your DAW or export via button.",
+              "es": "Exportación MIDI directa: Arrastra el resultado a tu DAW o expórtalo mediante un clic"
+            }
+          }
+        ],
+        "image": {
+          "en": "img/uploads/eng-progression-module.jpg",
+          "es": "img/uploads/esp-modulo-de-progresiones.jpg"
+        },
+        "zoom": true
+      }
+    },
+    {
+      "id": "bcm9pn",
+      "type": "cards",
+      "hidden": false,
+      "style": {
+        "fontTitle": "jetbrains-mono"
+      },
+      "props": {
+        "title": {
+          "en": "Made to stay out of your way",
+          "es": "Pensado para hacer canciones, no para aprender funciones"
+        },
+        "columns": "3",
+        "items": [
+          {
+            "title": {
+              "en": "Drag to your DAW",
+              "es": "Arrastra a tu DAW"
+            },
+            "text": {
+              "en": "Hold Ctrl and drag a slot, a chord or a whole group into a folder or straight onto a DAW track.",
+              "es": "Mantén Ctrl y arrastra un slot, un acorde o un grupo entero a una carpeta o directo a una pista de tu DAW."
+            }
+          },
+          {
+            "title": {
+              "en": "MIDI in and out",
+              "es": "MIDI de ida y vuelta"
+            },
+            "text": {
+              "en": "Import a melody from a MIDI file; export chords and melody on separate tracks.",
+              "es": "Importa una melodía desde un archivo MIDI; exporta acordes y melodía en pistas separadas."
+            }
+          },
+          {
+            "title": {
+              "en": "30 to 300 BPM",
+              "es": "De 30 a 300 BPM"
+            },
+            "text": {
+              "en": "Play everything back at any tempo, with a time signature per slot.",
+              "es": "Reproduce todo a cualquier tempo, con compás propio en cada slot."
+            }
+          },
+          {
+            "title": {
+              "en": "Undo everything",
+              "es": "Deshaz todo"
+            },
+            "text": {
+              "en": "Undo and redo, keyboard shortcuts for everything, modules you can reorder and collapse.",
+              "es": "Deshacer y rehacer, atajos para todo y módulos que se reordenan y se pliegan."
+            }
+          },
+          {
+            "title": {
+              "en": "English & Spanish",
+              "es": "Inglés y español"
+            },
+            "text": {
+              "en": "Switch the interface language instantly, and choose your note names.",
+              "es": "Cambia el idioma al instante y elige la notación de las notas."
+            }
+          },
+          {
+            "title": {
+              "en": "Works offline",
+              "es": "Funciona sin conexión"
+            },
+            "text": {
+              "en": "No account, no ads, no tracking. The internet is only needed once, to activate your license.",
+              "es": "Sin cuenta, sin publicidad, sin rastreo. Internet solo hace falta una vez, para activar la licencia."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "bdprua",
+      "type": "pricing",
+      "hidden": false,
+      "style": {
+        "anchor": "pricing",
+        "fontTitle": "jetbrains-mono"
+      },
+      "props": {
+        "name": "Gavna Music Composer",
+        "logo": {
+          "en": "img/music-composer-logo.svg",
+          "es": "img/music-composer-logo.svg"
+        },
+        "title": {
+          "en": "One price. Yours to keep.",
+          "es": "Un precio. Para siempre."
+        },
+        "per": {
+          "en": "one-time payment",
+          "es": "pago único"
+        },
+        "bullets": [
+          {
+            "text": {
+              "en": "15-day free trial with every feature",
+              "es": "15 días de prueba gratis con todas las funciones"
+            }
+          },
+          {
+            "text": {
+              "en": "No subscription — the license never expires",
+              "es": "Sin suscripción: la licencia no vence"
+            }
+          },
+          {
+            "text": {
+              "en": "All version 1 updates included",
+              "es": "Incluye todas las actualizaciones de la versión 1"
+            }
+          }
+        ],
+        "follow": {
+          "en": "Follow Gavna for news, tips and what's coming next.",
+          "es": "Sigue a Gavna para novedades, consejos y lo que viene."
+        },
+        "specsTitle": {
+          "en": "System requirements",
+          "es": "Requisitos"
+        },
+        "specs": [
+          {
+            "text": {
+              "en": "Windows 10 or 11, 64-bit",
+              "es": "Windows 10 u 11, 64 bits"
+            }
+          },
+          {
+            "text": {
+              "en": "Speakers or headphones",
+              "es": "Parlantes o auriculares"
+            }
+          },
+          {
+            "text": {
+              "en": "Internet only to activate the license",
+              "es": "Internet solo para activar la licencia"
+            }
+          },
+          {
+            "text": {
+              "en": "Any DAW that accepts MIDI files (optional)",
+              "es": "Cualquier DAW que acepte archivos MIDI (opcional)"
+            }
+          }
+        ],
+        "manualTitle": {
+          "en": "User manual",
+          "es": "Manual de usuario"
+        },
+        "manualFile": {
+          "en": "downloads/Gavna-Music-Composer-Manual-EN.pdf",
+          "es": "downloads/Gavna-Music-Composer-Manual-ES.pdf"
+        },
+        "manualLabel": {
+          "en": "Download the manual (PDF)",
+          "es": "Descargar el manual (PDF)"
+        }
+      }
+    },
+    {
+      "id": "be8h4k",
+      "type": "faq",
+      "hidden": false,
+      "style": {
+        "anchor": "faq",
+        "fontTitle": "jetbrains-mono"
+      },
+      "props": {
+        "title": {
+          "en": "Frequently asked questions",
+          "es": "Preguntas frecuentes"
+        },
+        "items": [
+          {
+            "q": {
+              "en": "Is it a plugin?",
+              "es": "¿Es un plugin?"
+            },
+            "a": {
+              "en": "No. Gavna Music Composer is a standalone Windows app that works next to your DAW: you drag the result into it as MIDI.",
+              "es": "No. Gavna Music Composer es una aplicación de Windows independiente que trabaja al lado de tu DAW: le pasas el resultado arrastrandolo como MIDI."
+            }
+          },
+          {
+            "q": {
+              "en": "Does it work with my DAW?",
+              "es": "¿Funciona con mi DAW?"
+            },
+            "a": {
+              "en": "With any DAW that accepts MIDI files: drag a slot or a group onto a track, or export a .mid file and import it.",
+              "es": "Con cualquier DAW que acepte archivos MIDI: arrastra un slot o un grupo a una pista, o exporta un archivo .mid e impórtalo."
+            }
+          },
+          {
+            "q": {
+              "en": "Do I need to know music theory?",
+              "es": "¿Necesito saber teoría musical?"
+            },
+            "a": {
+              "en": "No. The suggestions and arrangement techniques do the theory for you, and each one explains what it does in plain words. If you do know theory, you'll find degrees, modes and substitutions ready to use.",
+              "es": "No. Las sugerencias y las técnicas de arreglo hacen la teoría por ti, y cada una explica qué hace en palabras simples. Si sabes teoría, vas a encontrar grados, modos y sustituciones listos para usar."
+            }
+          },
+          {
+            "q": {
+              "en": "Does it use AI to write the music for me?",
+              "es": "¿Usa IA para escribir la música por mí?"
+            },
+            "a": {
+              "en": "No. Every suggestion comes from music-theory rules you can see and follow, and every decision is yours. Gavna Music Composer is built to empower your creativity, never to replace it.",
+              "es": "No. Cada sugerencia sale de reglas de teoría musical que puedes ver y seguir, y cada decisión es tuya. Gavna Music Composer está hecho para potenciar tu creatividad, nunca para reemplazarla."
+            }
+          },
+          {
+            "q": {
+              "en": "Is there a Mac version?",
+              "es": "¿Hay versión para Mac?"
+            },
+            "a": {
+              "en": "Not yet. Gavna Music Composer runs on Windows 10 and 11.",
+              "es": "Todavía no. Gavna Music Composer funciona en Windows 10 y 11."
+            }
+          },
+          {
+            "q": {
+              "en": "What happens when the trial ends?",
+              "es": "¿Qué pasa cuando termina la prueba?"
+            },
+            "a": {
+              "en": "The app asks for a license key to keep opening. Your projects are saved as files on your computer and stay yours whether you buy or not.",
+              "es": "La app pide una clave de licencia para seguir abriéndose. Tus proyectos se guardan como archivos en tu computadora y siguen siendo tuyos, compres o no."
+            }
+          },
+          {
+            "q": {
+              "en": "Is it a subscription?",
+              "es": "¿Es una suscripción?"
+            },
+            "a": {
+              "en": "No. You pay once and the license never expires. Every version 1 update is included.",
+              "es": "No. Pagas una vez y la licencia no vence. Incluye todas las actualizaciones de la versión 1."
+            }
+          },
+          {
+            "q": {
+              "en": "Can I get a refund?",
+              "es": "¿Puedo pedir un reembolso?"
+            },
+            "a": {
+              "en": "Purchases are final, because you can try every feature free for 15 days first. We refund in full if, within 14 days of your purchase, the app doesn't work on your computer and we can't fix it, or if you were charged twice. The details are in our Refund Policy.",
+              "es": "Las compras son finales, porque antes puedes probar todas las funciones gratis durante 15 días. Te devolvemos el total si, dentro de los 14 días de tu compra, la aplicación no funciona en tu computadora y no logramos resolverlo, o si te cobraron dos veces. Los detalles están en nuestra Política de reembolsos."
+            }
+          }
+        ],
+        "supportTitle": {
+          "en": "Need help?",
+          "es": "¿Necesitas ayuda?"
+        },
+        "supportText": {
+          "en": "Write to us and we'll answer within 3 business days.",
+          "es": "Escríbenos y te respondemos dentro de 3 días hábiles."
+        }
+      }
+    }
+  ]
+}

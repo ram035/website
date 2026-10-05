@@ -1,0 +1,142 @@
+{
+  "site": {
+    "name": "Gavna Digital",
+    "url": "https://gavna.digital",
+    "email": "info@gavna.digital",
+    "contactFormKey": "1045ecab-7645-472e-90e3-be668524a09f",
+    "phoneDisplay": "+59892547075",
+    "whatsapp": "https://wa.me/59892547075",
+    "instagram": "https://www.instagram.com/gavna.digital",
+    "discord": "https://discord.gg/TcpVEtnbM",
+    "legalName": "Gavna Digital",
+    "country": {
+      "en": "Independent software development",
+      "es": "Laboratorio Creativo de Software"
+    },
+    "tagline": {
+      "en": "Independent software development",
+      "es": "Laboratorio Creativo de Software"
+    },
+    "description": {
+      "en": "At Gavna, our conviction is that technology should help enhance human capabilities, never replace them. We build music and audiovisual tools that streamline and expand your workflow, so you can keep the focus on what matters: your creativity.",
+      "es": "En Gavna, nuestra convicción es que la tecnología debe ayudar a potenciar las facultades humanas, nunca sustituirlas. Desarrollamos herramientas musicales y audiovisuales que agilizan y expanden el flujo de trabajo, para que puedas mantener el foco en lo que importa: tu creatividad."
+    }
+  },
+  "nav": {
+    "products": {
+      "en": "Products",
+      "es": "Productos"
+    },
+    "links": [
+      {
+        "label": {
+          "en": "About",
+          "es": "Nosotros"
+        },
+        "link": "page:home#about"
+      },
+      {
+        "label": {
+          "en": "Contact",
+          "es": "Contacto"
+        },
+        "link": "page:home#contact"
+      }
+    ]
+  },
+  "musicComposer": {
+    "name": "Gavna Music Composer",
+    "tagline": {
+      "en": "Songwriting software for Windows",
+      "es": "Software de composición para Windows"
+    },
+    "price": "49",
+    "currency": "US$",
+    "storeUrl": "https://apps.microsoft.com/detail/9NZ202D59TVX",
+    "checkoutUrl": "https://www.creem.io/payment/prod_4xyCqTtNPaOyX8oMUNFEfZ",
+    "download": {
+      "button": {
+        "en": "Download free trial",
+        "es": "Descargar prueba gratis"
+      },
+      "available": {
+        "en": "Available on the Microsoft Store",
+        "es": "Disponible en Microsoft Store"
+      },
+      "note": {
+        "en": "Free download from the Microsoft Store. 15 days with every feature, no card needed.",
+        "es": "Descarga gratis desde Microsoft Store. 15 días con todas las funciones, sin tarjeta."
+      }
+    },
+    "buyButton": {
+      "en": "Buy a license",
+      "es": "Comprar licencia"
+    }
+  },
+  "purchased": {
+    "title": {
+      "en": "Thanks for your purchase!",
+      "es": "¡Gracias por tu compra!"
+    },
+    "text": {
+      "en": "Your license key is in the receipt we just emailed you. Activate it in three steps:",
+      "es": "Tu clave de licencia está en el recibo que te acabamos de enviar por email. Actívala en tres pasos:"
+    },
+    "steps": [
+      {
+        "en": "Install Gavna Music Composer from the Microsoft Store, if you don't have it yet.",
+        "es": "Instala Gavna Music Composer desde Microsoft Store, si todavía no la tienes."
+      },
+      {
+        "en": "Open it and go to Help → Buy or Activate Gavna Music Composer…",
+        "es": "Ábrela y ve a Ayuda → Comprar o activar Gavna Music Composer…"
+      },
+      {
+        "en": "Paste your key and click Activate.",
+        "es": "Pega tu clave y haz clic en Activar."
+      }
+    ],
+    "storeButton": {
+      "en": "Get it from the Microsoft Store",
+      "es": "Descárgala de Microsoft Store"
+    },
+    "help": {
+      "en": "Can't find the email, or something went wrong? Write to us at",
+      "es": "¿No encuentras el email o algo salió mal? Escríbenos a"
+    }
+  },
+  "footer": {
+    "legal": {
+      "en": "Legal",
+      "es": "Legal"
+    },
+    "privacy": {
+      "en": "Privacy policy",
+      "es": "Política de privacidad"
+    },
+    "terms": {
+      "en": "Terms of use",
+      "es": "Términos de uso"
+    },
+    "refunds": {
+      "en": "Refund policy",
+      "es": "Política de reembolsos"
+    },
+    "rights": {
+      "en": "All Rights Reserved",
+      "es": "Todos los Derechos Reservados"
+    },
+    "notFound": {
+      "en": "This page doesn't exist.",
+      "es": "Esta página no existe."
+    },
+    "home": {
+      "en": "Go to the home page",
+      "es": "Ir al inicio"
+    },
+    "contactTitle": {
+      "en": "Contact",
+      "es": "Contacto"
+    }
+  }
+}

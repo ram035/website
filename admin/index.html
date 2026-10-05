@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Panel — Gavna</title>
+<link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="admin.css">
+</head>
+<body>
+<header class="bar">
+  <strong class="bar-title">Gavna</strong>
+  <nav class="tabs" id="tabs">
+    <button type="button" data-tab="pages" class="on">Páginas</button>
+    <button type="button" data-tab="data">Datos y textos</button>
+  </nav>
+  <span class="bar-status" id="status"></span>
+  <a class="b" href="/" target="_blank" rel="noopener">Ver sitio</a>
+  <button class="b" id="pack" type="button">Empaquetar para Netlify</button>
+  <button class="b b-main" id="save" type="button" disabled>Guardar</button>
+</header>
+
+<!-- the block editor -->
+<div class="builder" id="view-pages">
+  <aside class="pane pane-left">
+    <div class="page-pick">
+      <select id="page-select" aria-label="Página"></select>
+      <button class="ic" id="page-new" type="button" title="Nueva página">+</button>
+    </div>
+    <button class="page-settings" id="page-settings" type="button">⚙ Ajustes de la página</button>
+    <div class="list-head">Bloques <span class="hint-s">arrastra para ordenar</span></div>
+    <ol class="blocks" id="blocks"></ol>
+    <button class="add-block" id="add-block" type="button">+ Agregar bloque</button>
+  </aside>
+
+  <section class="stage">
+    <div class="stage-bar">
+      <div class="seg" id="lang-seg">
+        <button type="button" data-lang="es" class="on">Español</button>
+        <button type="button" data-lang="en">English</button>
+      </div>
+      <div class="seg" id="device-seg">
+        <button type="button" data-device="desktop" class="on">Computadora</button>
+        <button type="button" data-device="tablet">Tablet</button>
+        <button type="button" data-device="mobile">Celular</button>
+      </div>
+      <div class="seg">
+        <button type="button" id="undo" title="Deshacer (Ctrl+Z)" disabled>↶ Deshacer</button>
+        <button type="button" id="redo" title="Rehacer (Ctrl+Y)" disabled>↷ Rehacer</button>
+      </div>
+      <span class="stage-note" id="stage-note"></span>
+    </div>
+    <div class="frame-box" id="frame-box">
+      <iframe id="frame" title="Vista previa"></iframe>
+    </div>
+  </section>
+
+  <aside class="pane pane-right" id="props"></aside>
+</div>
+
+<!-- the site's data, menu, shared texts and legal texts -->
+<div class="layout" id="view-data" hidden>
+  <nav class="side" id="side"></nav>
+  <main class="main" id="main"></main>
+</div>
+
+<div class="modal" id="modal" hidden>
+  <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-head"><strong id="modal-title"></strong><button class="ic" type="button" id="modal-close" aria-label="Cerrar">✕</button></div>
+    <div class="modal-body" id="modal-body"></div>
+  </div>
+</div>
+
+<script src="admin.js"></script>
+</body>
+</html>

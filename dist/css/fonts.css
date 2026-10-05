@@ -1,0 +1,12 @@
+/* written by build.js from the files in src/fonts - do not edit */
+@font-face { font-family: 'blkfont-inter'; font-weight: 400; font-style: normal; font-display: swap; src: url('../fonts/inter-400.woff2') format('woff2'); }
+@font-face { font-family: 'blkfont-inter'; font-weight: 500; font-style: normal; font-display: swap; src: url('../fonts/inter-500.woff2') format('woff2'); }
+@font-face { font-family: 'blkfont-inter'; font-weight: 600; font-style: normal; font-display: swap; src: url('../fonts/inter-600.woff2') format('woff2'); }
+@font-face { font-family: 'blkfont-inter'; font-weight: 700; font-style: normal; font-display: swap; src: url('../fonts/inter-700.woff2') format('woff2'); }
+.blk-ft-inter { --mono: 'blkfont-inter', sans-serif; }
+.blk-fx-inter { --font: 'blkfont-inter', sans-serif; font-family: var(--font); }
+@font-face { font-family: 'blkfont-jetbrains-mono'; font-weight: 400; font-style: normal; font-display: swap; src: url('../fonts/jetbrains-mono-400.woff2') format('woff2'); }
+@font-face { font-family: 'blkfont-jetbrains-mono'; font-weight: 600; font-style: normal; font-display: swap; src: url('../fonts/jetbrains-mono-600.woff2') format('woff2'); }
+@font-face { font-family: 'blkfont-jetbrains-mono'; font-weight: 700; font-style: normal; font-display: swap; src: url('../fonts/jetbrains-mono-700.woff2') format('woff2'); }
+.blk-ft-jetbrains-mono { --mono: 'blkfont-jetbrains-mono', monospace; }
+.blk-fx-jetbrains-mono { --font: 'blkfont-jetbrains-mono', monospace; font-family: var(--font); }

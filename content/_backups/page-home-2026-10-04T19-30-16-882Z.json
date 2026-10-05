@@ -1,0 +1,210 @@
+{
+  "path": "",
+  "title": {
+    "en": "Gavna — Creative Software Lab",
+    "es": "Gavna — Laboratorio Creativo de Software"
+  },
+  "description": {
+    "en": "Gavna is a creative lab for software and digital solutions from Uruguay. Our first product is Gavna Music Composer, a songwriting workspace for chord progressions.",
+    "es": "Gavna es un laboratorio creativo de software y soluciones digitales de Uruguay. Nuestro primer producto es Gavna Music Composer, un espacio de trabajo para componer progresiones de acordes."
+  },
+  "image": {
+    "en": "img/music-composer/en-1-memory-bank.jpg",
+    "es": "img/music-composer/es-1-memory-bank.jpg"
+  },
+  "blocks": [
+    {
+      "id": "b1lhrt",
+      "type": "hero",
+      "hidden": false,
+      "style": {
+        "fontTitle": "jetbrains-mono",
+        "padTop": "",
+        "padBottom": "s",
+        "fontWeight": "400",
+        "italic": false,
+        "fontSize": "s"
+      },
+      "props": {
+        "layout": "split",
+        "eyebrow": {
+          "en": "Creative software lab",
+          "es": "Laboratorio creativo de software"
+        },
+        "title": {
+          "en": "Digital tools for creative work",
+          "es": "Herramientas digitales para proyectos creativos"
+        },
+        "text": {
+          "en": "At Gavna, the core belief is that technology should help enhance human capabilities, never replace them. Musical and audiovisual tools are crafted to streamline and expand workflow, letting you stay focused on what matters: your creativity.",
+          "es": "En Gavna, la convicción es que la tecnología debe ayudar a potenciar las facultades humanas, nunca sustituirlas. Se desarrollan herramientas musicales y audiovisuales orientadas a agilizar y expandir el flujo de trabajo, para que puedas mantener el foco en lo que importa: tu creatividad."
+        },
+        "buttons": [
+          {
+            "label": {
+              "en": "Discover Music Composer",
+              "es": "Conoce Music Composer"
+            },
+            "link": "page:music-composer",
+            "style": "red"
+          },
+          {
+            "label": {
+              "en": "About Gavna",
+              "es": "Sobre Gavna"
+            },
+            "link": "#about",
+            "style": "ghost"
+          }
+        ],
+        "note": {
+          "en": "",
+          "es": ""
+        },
+        "media": "lottie",
+        "lottie": "galaxy.json",
+        "glow": true,
+        "image": {
+          "en": "",
+          "es": ""
+        }
+      }
+    },
+    {
+      "id": "b2jjfw",
+      "type": "showcase",
+      "hidden": false,
+      "style": {
+        "anchor": "products",
+        "fontTitle": "jetbrains-mono",
+        "fontSize": "l",
+        "fontWeight": "400"
+      },
+      "props": {
+        "eyebrow": {
+          "en": "Our launch product",
+          "es": "Nuestro producto lanzamiento"
+        },
+        "name": "Gavna Music Composer",
+        "logo": {
+          "en": "img/music-composer-logo.svg",
+          "es": "img/music-composer-logo.svg"
+        },
+        "link": "page:music-composer",
+        "text": {
+          "en": "Built with a single goal in mind: helping you finish your tracks. 6 modules with strategically designed tools to accelerate your creative process and help you define the harmonic and melodic structure of your composition.",
+          "es": "Desarrollado con un solo objetivo en mente: ayudarte a finalizar tus canciones. 6 módulos con herramientas estratégicamente diseñadas para acelerar tu proceso creativo y ayudarte a definir la estructura armónica y melódica de tu composición."
+        },
+        "image": {
+          "en": "img/uploads/eng-memory-bank.jpg",
+          "es": "img/uploads/esp-banco-de-memoria.jpg"
+        },
+        "cards": [
+          {
+            "title": {
+              "en": "Chords, scales and melody. All in one place.",
+              "es": "Acordes, escalas y melodía en un solo lugar"
+            },
+            "text": {
+              "en": "Advance your progressions with music theory-backed guidance—no advanced prior knowledge required.",
+              "es": "Con guías basadas en teoría musical para avanzar en tu progresión sin necesidad de conocimientos previos avanzados."
+            }
+          },
+          {
+            "title": {
+              "en": "Shape Your Song's Direction",
+              "es": "Define el rumbo de tu música"
+            },
+            "text": {
+              "en": "Build chords and melodies effortlessly with suggestions based on the mood and atmosphere you want to capture.",
+              "es": "Arma acordes y melodías fácilmente con sugerencias basadas en la atmósfera y la emoción que deseas imprimirles."
+            }
+          },
+          {
+            "title": {
+              "en": "Straight into your DAW",
+              "es": "Directo a tu DAW"
+            },
+            "text": {
+              "en": "Drag chords and melodies as MIDI into your DAW, or use them as a guide to play right away.",
+              "es": "Arrastra tus acordes y melodías como MIDI a tu DAW o úsalos de guía para tocar al instante."
+            }
+          }
+        ],
+        "buttons": [
+          {
+            "label": {
+              "en": "Explore Music Composer",
+              "es": "Explorar Music Composer"
+            },
+            "link": "page:music-composer",
+            "style": "red"
+          }
+        ],
+        "note": {
+          "en": "Windows 10 & 11 · US$49 one-time · 15-day free trial",
+          "es": "Windows 10 y 11 · US$49 pago único · 15 días de prueba gratis"
+        },
+        "available": true
+      }
+    },
+    {
+      "id": "b3lc7q",
+      "type": "text",
+      "hidden": false,
+      "style": {
+        "bg": "alt",
+        "anchor": "about",
+        "fontTitle": "jetbrains-mono"
+      },
+      "props": {
+        "title": {
+          "en": "About",
+          "es": "Acerca"
+        },
+        "paragraphs": [
+          {
+            "text": {
+              "en": "At Gavna, the core belief is that technology should help enhance human capabilities, never replace them. Musical and audiovisual tools are crafted to streamline and expand workflow, letting you stay focused on what matters: your creativity.",
+              "es": "En Gavna, la convicción es que la tecnología debe ayudar a potenciar las facultades humanas, nunca sustituirlas. Se desarrollan herramientas musicales y audiovisuales orientadas a agilizar y expandir el flujo de trabajo, para que puedas mantener el foco en lo que importa: tu creatividad."
+            }
+          },
+          {
+            "text": {
+              "en": "In ancient Aramaic, Gavna holds a double meaning: while it literally translates to “color,” it also refers to the unique manner, mode, or style in which something is done. For us, technology should reflect both—capturing not just the final hue of your vision, but the distinct personal approach you bring to the creative process.",
+              "es": "En arameo antiguo, Gavna encierra un doble significado: aunque se traduce literalmente como “color”, también describe la manera, el modo o el estilo particular en que se hace algo. Para nosotros, la tecnología debe reflejar ambas dimensiones: no solo el tono final de tu idea, sino también la impronta y el proceso único con el que la llevas a cabo."
+            }
+          }
+        ],
+        "size": "l",
+        "highlight": {
+          "en": "Ramiro Piedrabuena — Design & Development",
+          "es": "Ramiro Piedrabuena — Diseño & Desarrollo"
+        }
+      }
+    },
+    {
+      "id": "b44x35",
+      "type": "contact",
+      "hidden": false,
+      "style": {
+        "anchor": "contact",
+        "fontTitle": "jetbrains-mono",
+        "italic": false,
+        "bg": "",
+        "fontSize": "l",
+        "fontText": "jetbrains-mono"
+      },
+      "props": {
+        "title": {
+          "en": "Contact",
+          "es": "Contacto"
+        },
+        "text": {
+          "en": "Whether you need support, want to collaborate, or just want to share feedback, we’d love to hear from you.",
+          "es": "Ya sea que necesites soporte con nuestras herramientas, quieras colaborar o simplemente ponerte en contacto, no dudes en escribirnos."
+        }
+      }
+    }
+  ]
+}
