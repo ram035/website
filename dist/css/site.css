@@ -240,7 +240,7 @@ select.input { appearance: none; cursor: pointer; padding-right: 36px; backgroun
 .price { margin: 8px 0; }
 .price-value { font-family: var(--mono); font-size: calc(60px * var(--fs, 1)); font-weight: 600; color: var(--white); letter-spacing: -.03em; }
 .price-per { color: var(--muted); }
-/* follow us for the launch: Instagram and Discord, with their icons */
+/* follow us for the launch: the social networks that have a link, with their icons */
 .follow { margin-top: 20px; }
 .follow-label { margin: 0 0 12px; color: var(--muted); }
 .follow-links { display: flex; flex-wrap: wrap; gap: 10px; }

@@ -158,7 +158,7 @@ const BLOCKS = {
       { key: 'title', label: 'Título', type: 'text' },
       { key: 'per', label: 'Texto junto al precio', type: 'text' },
       { key: 'bullets', label: 'Puntos', type: 'list', itemLabel: 'Punto', fields: [{ key: 'text', label: 'Punto', type: 'text' }] },
-      { key: 'follow', label: 'Texto sobre Instagram y Discord (vacío = sin redes)', type: 'text' },
+      { key: 'follow', label: 'Texto sobre las redes sociales (vacío = sin redes)', type: 'text' },
       { key: 'specsTitle', label: 'Título de requisitos', type: 'text' },
       { key: 'specs', label: 'Requisitos', type: 'list', itemLabel: 'Requisito', fields: [{ key: 'text', label: 'Requisito', type: 'text' }] },
       { key: 'manualTitle', label: 'Título del manual', type: 'text' },
@@ -195,7 +195,7 @@ const BLOCKS = {
 
   social: {
     label: 'Redes sociales', icon: '@', group: 'Texto',
-    desc: 'Un texto y los botones de Instagram y Discord.',
+    desc: 'Un texto y los botones de las redes sociales que tengan link (Instagram, Discord, Facebook, X y Reddit).',
     fields: [{ key: 'text', label: 'Texto', type: 'text' }],
     defaults: { text: L('Follow Gavna for news and updates.', 'Sigue a Gavna para novedades.') }
   },
