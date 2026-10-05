@@ -512,7 +512,8 @@
       if (structural) drawProps();
     };
     switch (f.type) {
-      case 'text': case 'textarea': wrap.appendChild(langPair(holder, f.key, f.type === 'textarea', function () { changed(false); })); break;
+      case 'text': case 'textarea': wrap.appendChild(langPair(holder, f.key, f.type === 'textarea', function () { changed(false); }, f.fmt !== false)); break;
+      case 'number': wrap.appendChild(numberBox(f, holder, function () { changed(false); })); break;
       case 'plain': {
         var inp = el('input'); inp.type = 'text'; inp.value = holder[f.key] == null ? '' : holder[f.key];
         inp.addEventListener('input', function () { holder[f.key] = inp.value; changed(false); });
@@ -548,22 +549,98 @@
     return wrap;
   }
 
-  // English and Spanish boxes; one empty while the other has text = missing
-  function langPair(holder, key, long, onChange) {
+  // a number box (font size…); empty = not set. Out-of-range numbers are brought
+  // back into range when the box loses focus.
+  function numberBox(f, holder, onChange) {
+    var v = holder[f.key];
+    if (f.legacy && typeof v === 'string' && f.legacy[v] != null) v = f.legacy[v]; // the old words
+    var wrap = el('div', 'num'), inp = el('input');
+    inp.type = 'number';
+    if (f.min != null) inp.min = f.min;
+    if (f.max != null) inp.max = f.max;
+    inp.step = f.step || 1;
+    inp.placeholder = f.max != null && f.min != null && f.min <= 100 && f.max >= 100 ? '100' : '';
+    inp.value = v === '' || v == null || isNaN(Number(v)) ? '' : Number(v);
+    inp.addEventListener('input', function () {
+      var n = inp.value.trim() === '' ? NaN : Number(inp.value);
+      holder[f.key] = isNaN(n) ? '' : n;
+      onChange();
+    });
+    inp.addEventListener('change', function () {
+      var n = inp.value.trim() === '' ? NaN : Number(inp.value);
+      if (isNaN(n)) { inp.value = ''; holder[f.key] = ''; onChange(); return; }
+      var c = Math.min(f.max != null ? f.max : n, Math.max(f.min != null ? f.min : n, n));
+      if (c !== n) { inp.value = c; holder[f.key] = c; onChange(); }
+    });
+    wrap.appendChild(inp);
+    if (f.unit) wrap.appendChild(el('span', 'num-unit', f.unit));
+    if (f.min != null && f.max != null) wrap.appendChild(el('span', 'num-range', 'de ' + f.min + ' a ' + f.max + ' · vacío = el normal'));
+    return wrap;
+  }
+
+  // English and Spanish boxes; one empty while the other has text = missing.
+  // With `fmt` the boxes grow with their text, Enter makes a line break (the
+  // site shows it) and a bar with B, I and S puts bold, italic or strikethrough
+  // on the selected text (admin/format.js).
+  function langPair(holder, key, long, onChange, fmt) {
     var v = holder[key];
     if (!isLang(v)) v = holder[key] = { en: typeof v === 'string' ? v : '', es: typeof v === 'string' ? v : '' };
-    var box = el('div', 'lp'), inputs = [];
+    var box = el('div', 'lp'), inputs = [], active = null, buttons = [];
     function mark() {
       inputs.forEach(function (x) { x.i.classList.toggle('miss', !x.i.value.trim() && !!(v.en || v.es)); });
     }
+    function fit(t) {
+      if (!t.scrollHeight) return; // not on screen yet
+      t.style.height = 'auto';
+      t.style.height = (t.scrollHeight + 2) + 'px';
+    }
+    function refreshBar() {
+      var any = !!active && active.selectionStart !== active.selectionEnd;
+      buttons.forEach(function (b) { b.disabled = !any; });
+    }
+    function apply(kind) {
+      if (!active) return;
+      var r = window.GavnaFormat.toggle(active.value, active.selectionStart, active.selectionEnd, kind);
+      if (!r) return;
+      active.value = r.value;
+      active.setSelectionRange(r.start, r.end);
+      active.focus();
+      active.dispatchEvent(new Event('input', { bubbles: true }));
+      refreshBar();
+    }
+    if (fmt) {
+      var bar = el('div', 'fmt-bar');
+      [['bold', 'B', 'Negrita (Ctrl+B)'], ['italic', 'I', 'Cursiva (Ctrl+I)'], ['strike', 'S', 'Tachado (Ctrl+Shift+X)']].forEach(function (d) {
+        var b = el('button', 'fmt-btn fmt-' + d[0], d[1]); b.type = 'button'; b.title = d[2]; b.disabled = true;
+        // pressing the button must not take the focus (and the selection) from the box
+        b.addEventListener('mousedown', function (e) { e.preventDefault(); });
+        b.addEventListener('click', function () { apply(d[0]); });
+        bar.appendChild(b); buttons.push(b);
+      });
+      bar.appendChild(el('span', 'fmt-hint', 'Selecciona texto y elige · Enter = salto de línea'));
+      box.appendChild(bar);
+    }
     ['es', 'en'].forEach(function (lang) {
       var row = el('div', 'lp-row');
-      var i = long ? el('textarea') : el('input');
-      if (!long) i.type = 'text';
+      var i = fmt ? el('textarea') : (long ? el('textarea') : el('input'));
+      if (fmt) { i.rows = 1; if (!long) i.classList.add('one'); } else if (!long) i.type = 'text';
       i.value = v[lang] || '';
       i.placeholder = lang === 'es' ? 'Español' : 'English';
-      i.addEventListener('input', function () { v[lang] = i.value; mark(); onChange(); });
-      i.addEventListener('focus', function () { if (S.lang !== lang && (v[lang] || v.en || v.es)) setLang(lang, true); });
+      i.addEventListener('input', function () { v[lang] = i.value; mark(); if (fmt) fit(i); onChange(); });
+      i.addEventListener('focus', function () {
+        active = i; if (fmt) { fit(i); refreshBar(); }
+        if (S.lang !== lang && (v[lang] || v.en || v.es)) setLang(lang, true);
+      });
+      if (fmt) {
+        ['select', 'keyup', 'mouseup', 'input'].forEach(function (ev) { i.addEventListener(ev, function () { if (active === i) refreshBar(); }); });
+        i.addEventListener('keydown', function (e) {
+          if (!(e.ctrlKey || e.metaKey) || e.altKey) return;
+          var k = e.key.toLowerCase(), kind = k === 'b' && !e.shiftKey ? 'bold' : k === 'i' && !e.shiftKey ? 'italic' : k === 'x' && e.shiftKey ? 'strike' : '';
+          if (!kind) return;
+          e.preventDefault(); active = i; apply(kind);
+        });
+        setTimeout(function () { fit(i); }, 0);
+      }
       row.appendChild(i); row.appendChild(el('span', 'lp-tag', lang.toUpperCase()));
       box.appendChild(row);
       inputs.push({ i: i });

@@ -23,7 +23,7 @@
         "padBottom": "s",
         "fontWeight": "400",
         "italic": false,
-        "fontSize": "l"
+        "fontSize": 115
       },
       "props": {
         "layout": "split",
@@ -77,7 +77,7 @@
       "style": {
         "anchor": "products",
         "fontTitle": "jetbrains-mono",
-        "fontSize": "l",
+        "fontSize": 115,
         "fontWeight": "400"
       },
       "props": {
@@ -156,7 +156,7 @@
         "bg": "alt",
         "anchor": "about",
         "fontTitle": "jetbrains-mono",
-        "fontSize": "s"
+        "fontSize": 88
       },
       "props": {
         "title": {
@@ -193,7 +193,7 @@
         "fontTitle": "jetbrains-mono",
         "italic": false,
         "bg": "",
-        "fontSize": "l",
+        "fontSize": 115,
         "fontText": "jetbrains-mono"
       },
       "props": {

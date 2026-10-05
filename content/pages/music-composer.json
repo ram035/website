@@ -59,7 +59,7 @@
       "hidden": false,
       "style": {
         "fontTitle": "jetbrains-mono",
-        "fontSize": "l",
+        "fontSize": 115,
         "border": false
       },
       "props": {
