@@ -365,13 +365,10 @@ details p { margin: 12px 0 0; color: var(--muted); }
 .blk-fw-700, .blk-fw-700 *:not(strong):not(b):not(.btn) { font-weight: 700 !important; }
 .blk-italic, .blk-italic *:not(.btn) { font-style: italic; }
 /* size: every font-size above is multiplied by --fs (1 when the block sets none) */
-.blk-fs-xs { --fs: .75; }
-.blk-fs-s { --fs: .88; }
-.blk-fs-l { --fs: 1.15; }
-.blk-fs-xl { --fs: 1.35; }
-.blk-fs-xxl { --fs: 1.7; }
-[class*="blk-fs-"] :is(h1, h2, h3, p, summary) { overflow-wrap: break-word; }
-@media (max-width: 760px) { .blk-fs-xl { --fs: 1.2; } .blk-fs-xxl { --fs: 1.4; } }
+/* "Tamaño de la letra": --fs-d on a computer, --fs-m on a phone (set in the block's style) */
+.blk-fs { --fs: var(--fs-d); }
+.blk-fs :is(h1, h2, h3, p, summary) { overflow-wrap: break-word; }
+@media (max-width: 760px) { .blk-fs { --fs: var(--fs-m); } }
 @media (min-width: 761px) { .blk-only-mobile { display: none !important; } }
 @media (max-width: 760px) { .blk-only-desktop { display: none !important; } }
 

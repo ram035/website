@@ -13,7 +13,7 @@ const fs = require('fs');
 const path = require('path');
 const zlib = require('zlib');
 const crypto = require('crypto');
-const { BLOCKS } = require('./blocks');
+const { BLOCKS, STYLE_FIELDS } = require('./blocks');
 
 const ROOT = __dirname;
 const SRC = path.join(ROOT, 'src');
@@ -39,7 +39,7 @@ function tr(value, lang, where) {
   return '';
 }
 
-// **bold** and [text](link); a link that isn't a web, mail or site address
+// **bold**, [text](link); a link that isn't a web, mail or site address
 // stays plain text
 function inlineMd(s) {
   return esc(s)
@@ -49,6 +49,32 @@ function inlineMd(s) {
       if (!/^(https?:\/\/|mailto:|\/|#|\.\.?\/)/i.test(u)) return text;
       return `<a href="${esc(u)}"${/^https?:/i.test(u) ? ' target="_blank" rel="noopener"' : ''}>${text}</a>`;
     });
+}
+
+// The texts of the blocks (what the panel's text boxes hold): Enter makes a line
+// break, and the selected words can be **bold**, *italic* or ~~struck through~~
+// (the panel's B, I and S buttons write those marks). Everything is escaped
+// first, so the only tags that can come out are the ones made here. With `links`
+// a [text](link) becomes a link too. A mark never reaches across a line.
+function formatInline(h) {
+  return h
+    .replace(/~~(?=\S)(.+?)(?<=\S)~~/g, '<s>$1</s>')
+    .replace(/\*\*\*(?=[^\s*])(.*?[^\s*])\*\*\*/g, '<strong><em>$1</em></strong>')
+    .replace(/\*\*(?=[^\s*])(.*?[^\s*])\*\*/g, '<strong>$1</strong>')
+    .replace(/\*(?=[^\s*])([^*\n]*[^\s*])\*/g, '<em>$1</em>');
+}
+function richText(s, links) {
+  const keep = [];
+  let h = esc(String(s == null ? '' : s).replace(/\0/g, '').replace(/\r\n?/g, '\n').replace(/^\n+|\n+$/g, ''));
+  if (links) {
+    h = h.replace(/\[(.+?)\]\((.+?)\)/g, (m, text, url) => {
+      const u = url.replace(/&amp;/g, '&');
+      if (!/^(https?:\/\/|mailto:|\/|#|\.\.?\/)/i.test(u)) return text;
+      keep.push(`<a href="${esc(u)}"${/^https?:/i.test(u) ? ' target="_blank" rel="noopener"' : ''}>${formatInline(text)}</a>`);
+      return `\0${keep.length - 1}\0`;
+    });
+  }
+  return formatInline(h).replace(/\n/g, '<br>').replace(/\0(\d+)\0/g, (m, i) => keep[i]);
 }
 
 // just what the legal texts use: # / ## headings, paragraphs, - and 1. lists
@@ -439,9 +465,21 @@ const STYLE_CLASS = {
   width: { narrow: 'blk-w-narrow', normal: 'blk-w-normal' },
   align: { left: 'blk-al-left', center: 'blk-al-center' },
   fontWeight: { 400: 'blk-fw-400', 500: 'blk-fw-500', 600: 'blk-fw-600', 700: 'blk-fw-700' },
-  fontSize: { xs: 'blk-fs-xs', s: 'blk-fs-s', l: 'blk-fs-l', xl: 'blk-fs-xl', xxl: 'blk-fs-xxl' },
   show: { desktop: 'blk-only-desktop', mobile: 'blk-only-mobile' }
 };
+
+// "Tamaño de la letra": a percentage (100 = normal) that scales every text of the
+// block. The old words (xs…xxl) still work. Returns [desktop, phone] multipliers,
+// or null when it isn't set; on a phone a big size grows less, so it still fits.
+function fontScale(v) {
+  const legacy = STYLE_FIELDS.find(f => f.key === 'fontSize').legacy;
+  if (typeof v === 'string' && Object.prototype.hasOwnProperty.call(legacy, v)) v = legacy[v];
+  const n = typeof v === 'number' || (typeof v === 'string' && v.trim() !== '') ? Number(v) : NaN;
+  if (!Number.isFinite(n) || n <= 0) return null;
+  const d = Math.min(300, Math.max(50, n)) / 100;
+  const m = d <= 1.15 ? d : 1.15 + (d - 1.15) * 0.35;
+  return [+d.toFixed(3), +m.toFixed(3)];
+}
 
 // the opening tag of a block: its own classes plus the "Estilo" settings,
 // its anchor, and (in the panel's preview) which block it is
@@ -449,6 +487,8 @@ function openTag(tag, base, b, x) {
   const st = b.style || {};
   const cls = [base];
   for (const k of Object.keys(STYLE_CLASS)) if (st[k] != null && Object.prototype.hasOwnProperty.call(STYLE_CLASS[k], st[k])) cls.push(STYLE_CLASS[k][st[k]]);
+  const scale = fontScale(st.fontSize);
+  if (scale) cls.push('blk-fs');
   if (st.border) cls.push('blk-border-top');
   if (st.italic) cls.push('blk-italic');
   // typefaces: only ones that exist in src/fonts (see fonts.css)
@@ -456,7 +496,7 @@ function openTag(tag, base, b, x) {
   if (typeof st.fontText === 'string' && fontKeys.has(st.fontText)) cls.push('blk-fx-' + st.fontText);
   if (x.preview && b.hidden) cls.push('blk-hidden');
   const anchor = /^[A-Za-z][\w-]{0,40}$/.test(st.anchor || '') ? st.anchor : '';
-  return `<${tag} class="${cls.filter(Boolean).join(' ')}"${anchor ? ` id="${anchor}"` : ''}${x.preview ? ` data-block="${esc(b.id)}"` : ''}>`;
+  return `<${tag} class="${cls.filter(Boolean).join(' ')}"${anchor ? ` id="${anchor}"` : ''}${scale ? ` style="--fs-d:${scale[0]};--fs-m:${scale[1]}"` : ''}${x.preview ? ` data-block="${esc(b.id)}"` : ''}>`;
 }
 
 // the buttons of a block; one whose link isn't set (no checkout yet…) is left out
@@ -591,7 +631,7 @@ const RENDER = {
     const to = resolveLink(p.link, x);
     const wrapLink = (cls, inner) => (to ? `<a class="${cls}" ${linkAttrs(to)}>${inner}</a>` : `<div class="${cls}">${inner}</div>`);
     const btns = buttons(p.buttons, x, x.where('botones'));
-    const note = [tr(p.note, x.lang), p.available && mc.storeUrl ? tr(mc.download.available, x.lang) : ''].filter(Boolean).join(' · ');
+    const note = [tr(p.note, x.lang) ? x.t(p.note) : '', p.available && mc.storeUrl ? esc(tr(mc.download.available, x.lang)) : ''].filter(Boolean).join(' · ');
     return `${openTag('section', 'showcase', b, x)}
   <div class="wrap">
     ${tr(p.eyebrow, x.lang) ? `<p class="eyebrow center">${x.t(p.eyebrow)}</p>` : ''}
@@ -602,7 +642,7 @@ const RENDER = {
       ${p.cards.map((h, i) => `<article class="more-card"><h3>${x.t(h.title, `tarjeta ${i + 1}`)}</h3><p>${x.t(h.text, `tarjeta ${i + 1}`)}</p></article>`).join('\n      ')}
     </div>` : ''}
     ${btns ? `<div class="cta-row center-row">\n      ${btns}\n    </div>` : ''}
-    ${note ? `<p class="hero-note center">${esc(note)}</p>` : ''}
+    ${note ? `<p class="hero-note center">${note}</p>` : ''}
   </div>
 </section>`;
   },
@@ -712,8 +752,8 @@ function blockPage(c, pages, page, lang, preview) {
   const body = blocks.map((b) => {
     const label = (BLOCKS[b.type] || {}).label || b.type;
     x.where = what => `página ${page.id || '(nueva)'} → ${label}${what ? ' → ' + what : ''}`;
-    x.t = (v, what) => esc(tr(v, lang, x.where(what)));
-    x.md = (v, what) => inlineMd(tr(v, lang, x.where(what)));
+    x.t = (v, what) => richText(tr(v, lang, x.where(what)), false);
+    x.md = (v, what) => richText(tr(v, lang, x.where(what)), true);
     try {
       return RENDER[b.type] ? RENDER[b.type](b.props || {}, b, x) : '';
     } catch (err) {
@@ -1045,7 +1085,7 @@ function pack() {
   return { file: ZIP, files: files.length, bytes: fs.statSync(ZIP).size };
 }
 
-module.exports = { build, pack, preview, readPages, pageProblem, listFonts, syncFonts, FONT_MAGIC, ROOT, DIST, ZIP, PAGES_DIR, PAGE_ID };
+module.exports = { richText, fontScale, build, pack, preview, readPages, pageProblem, listFonts, syncFonts, FONT_MAGIC, ROOT, DIST, ZIP, PAGES_DIR, PAGE_ID };
 
 if (require.main === module) {
   const r = build();

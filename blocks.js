@@ -4,7 +4,11 @@
 // property editor from these fields).
 //
 // Field types:
-//   text, textarea  a text in English and Spanish ({en, es})
+//   text, textarea  a text in English and Spanish ({en, es}). Line breaks (Enter)
+//                   and **bold**, *italic*, ~~strikethrough~~ work in them, unless
+//                   the field has `fmt: false` (its text isn't written as HTML:
+//                   button labels, alt text, the page title for Google…)
+//   number          a number (`min`, `max`, `step`, `unit`); empty = not set
 //   plain           one text for both languages (a number, a code)
 //   image           a picture from src/img, one per language ({en, es})
 //   file            a file from src/downloads, one per language ({en, es})
@@ -18,7 +22,7 @@
 const L = (en, es) => ({ en, es });
 
 const BUTTON_FIELDS = [
-  { key: 'label', label: 'Texto', type: 'text' },
+  { key: 'label', label: 'Texto', type: 'text', fmt: false },
   { key: 'link', label: 'Lleva a', type: 'link' },
   { key: 'style', label: 'Estilo', type: 'select', options: [['red', 'Rojo (principal)'], ['ghost', 'Contorno (secundario)']] }
 ];
@@ -77,7 +81,7 @@ const BLOCKS = {
     desc: 'Una imagen, con epígrafe y link opcionales.',
     fields: [
       { key: 'image', label: 'Imagen', type: 'image' },
-      { key: 'alt', label: 'Descripción (para lectores de pantalla y Google)', type: 'text' },
+      { key: 'alt', label: 'Descripción (para lectores de pantalla y Google)', type: 'text', fmt: false },
       { key: 'caption', label: 'Epígrafe', type: 'text' },
       { key: 'link', label: 'Al hacer clic, lleva a', type: 'link' },
       { key: 'size', label: 'Ancho', type: 'select', options: [['m', 'Mediano'], ['l', 'Grande'], ['s', 'Chico']] },
@@ -203,7 +207,7 @@ const BLOCKS = {
   contact: {
     label: 'Formulario de contacto', icon: '✉', group: 'Formularios',
     desc: 'El formulario de contacto (uno por página).',
-    fields: [{ key: 'title', label: 'Título', type: 'text' }, { key: 'text', label: 'Texto', type: 'textarea' }],
+    fields: [{ key: 'title', label: 'Título', type: 'text', fmt: false }, { key: 'text', label: 'Texto', type: 'textarea', fmt: false }],
     defaults: { title: L('Contact', 'Contacto'), text: L('Write to us.', 'Escríbenos.') }
   },
 
@@ -248,7 +252,8 @@ const STYLE_FIELDS = [
   { key: 'fontText', label: 'Fuente del texto', type: 'select', options: FONT_OPTIONS },
   { key: 'fontWeight', label: 'Grosor de la letra', type: 'select', options: [['', 'El del bloque'], ['400', 'Normal'], ['500', 'Medio'], ['600', 'Seminegrita'], ['700', 'Negrita']] },
   { key: 'italic', label: 'Letra cursiva', type: 'toggle' },
-  { key: 'fontSize', label: 'Tamaño de la letra', type: 'select', options: [['', 'El del bloque'], ['xs', 'Mucho más chica'], ['s', 'Más chica'], ['l', 'Más grande'], ['xl', 'Mucho más grande'], ['xxl', 'Enorme']] },
+  { key: 'fontSize', label: 'Tamaño de la letra, en % (100 = el normal)', type: 'number', min: 50, max: 300, step: 5, unit: '%',
+    legacy: { xs: 75, s: 88, l: 115, xl: 135, xxl: 170 } },
   { key: 'border', label: 'Línea arriba', type: 'toggle' },
   { key: 'show', label: 'Mostrar en', type: 'select', options: [['', 'Computadora y celular'], ['desktop', 'Solo computadora'], ['mobile', 'Solo celular']] },
   { key: 'anchor', label: 'Ancla (para links como #precio; letras, números y guiones)', type: 'plain' }
@@ -256,8 +261,8 @@ const STYLE_FIELDS = [
 
 // a page's own settings (title for Google, menu…)
 const PAGE_FIELDS = [
-  { key: 'title', label: 'Título de la pestaña y de Google', type: 'text' },
-  { key: 'description', label: 'Descripción para Google y redes', type: 'textarea' },
+  { key: 'title', label: 'Título de la pestaña y de Google', type: 'text', fmt: false },
+  { key: 'description', label: 'Descripción para Google y redes', type: 'textarea', fmt: false },
   { key: 'image', label: 'Imagen al compartir en redes', type: 'image' }
 ];
 
