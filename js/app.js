@@ -390,7 +390,7 @@
       // en otro alcance y no ve la definición del proyecto.
       t.wcDef = def.watercolor;
       // En modo recortado, el alfa del SVG define hasta dónde llega la tinta.
-      if (def.watercolor.freeExpansion === false && extOf(def.image) === "svg") {
+      if ((def.watercolor.freeExpansion === false || def.watercolor.freeExpansion === "false") && extOf(def.image) === "svg") {
         t.wcMask = el.querySelector(".token__img--base");
       }
     }
@@ -2216,12 +2216,16 @@
     });
 
     var mascaraDatos = null;
-    if (cfg.freeExpansion === false && t.wcMask && t.wcMask.complete && t.wcMask.naturalWidth) {
+    if ((cfg.freeExpansion === false || cfg.freeExpansion === "false") && t.wcMask && t.wcMask.complete && t.wcMask.naturalWidth) {
       var mc = document.createElement("canvas");
       mc.width = cv.width;
       mc.height = cv.height;
       var mg = mc.getContext("2d");
-      mg.drawImage(t.wcMask, M * res, M * res, w * res, h * res);
+      var maskX = t.wcMask.offsetLeft || 0;
+      var maskY = t.wcMask.offsetTop || 0;
+      var maskW = t.wcMask.offsetWidth || w;
+      var maskH = t.wcMask.offsetHeight || h;
+      mg.drawImage(t.wcMask, (M + maskX) * res, (M + maskY) * res, maskW * res, maskH * res);
       mascaraDatos = mg.getImageData(0, 0, mc.width, mc.height);
 
       // Completa las zonas transparentes encerradas por los contornos del SVG.
@@ -2231,7 +2235,7 @@
       var pila = new Int32Array(mw * mh), tope = 0;
       function agregarExterior(px, py) {
         var pi = py * mw + px;
-        if (exterior[pi] || md[pi * 4 + 3] >= 16) return;
+        if (exterior[pi] || md[pi * 4 + 3] > 0) return;
         exterior[pi] = 1;
         pila[tope++] = pi;
       }
@@ -2252,7 +2256,7 @@
       }
       for (var mi = 0; mi < mw * mh; mi++) {
         var ai = mi * 4 + 3;
-        if (md[ai] < 16 && !exterior[mi]) md[ai] = 255;
+        if (md[ai] === 0 && !exterior[mi]) md[ai] = 255;
       }
     }
     prepararMojado(t, g, cv.width, cv.height, res, fuentes, mascaraDatos);
