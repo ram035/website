@@ -2223,6 +2223,37 @@
       var mg = mc.getContext("2d");
       mg.drawImage(t.wcMask, M * res, M * res, w * res, h * res);
       mascaraDatos = mg.getImageData(0, 0, mc.width, mc.height);
+
+      // Completa las zonas transparentes encerradas por los contornos del SVG.
+      // Así la mancha cubre el interior del icono, pero no escapa al exterior.
+      var md = mascaraDatos.data, mw = mc.width, mh = mc.height;
+      var exterior = new Uint8Array(mw * mh);
+      var pila = new Int32Array(mw * mh), tope = 0;
+      function agregarExterior(px, py) {
+        var pi = py * mw + px;
+        if (exterior[pi] || md[pi * 4 + 3] >= 16) return;
+        exterior[pi] = 1;
+        pila[tope++] = pi;
+      }
+      for (var mx = 0; mx < mw; mx++) {
+        agregarExterior(mx, 0);
+        agregarExterior(mx, mh - 1);
+      }
+      for (var my = 1; my < mh - 1; my++) {
+        agregarExterior(0, my);
+        agregarExterior(mw - 1, my);
+      }
+      while (tope) {
+        var pi = pila[--tope], px = pi % mw, py = (pi / mw) | 0;
+        if (px > 0) agregarExterior(px - 1, py);
+        if (px + 1 < mw) agregarExterior(px + 1, py);
+        if (py > 0) agregarExterior(px, py - 1);
+        if (py + 1 < mh) agregarExterior(px, py + 1);
+      }
+      for (var mi = 0; mi < mw * mh; mi++) {
+        var ai = mi * 4 + 3;
+        if (md[ai] < 16 && !exterior[mi]) md[ai] = 255;
+      }
     }
     prepararMojado(t, g, cv.width, cv.height, res, fuentes, mascaraDatos);
     t.wcSt.T = 0;
