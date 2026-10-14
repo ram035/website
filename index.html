@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ramiro Piedrabuena</title>
+<meta name="description" content="Portfolio de Ramiro Piedrabuena — Ramiro Piedrabuena's portfolio.">
+<link rel="canonical" href="https://ramiropiedrabuena.website/">
+<link rel="alternate" hreflang="es" href="https://ramiropiedrabuena.website/?lang=es">
+<link rel="alternate" hreflang="en" href="https://ramiropiedrabuena.website/?lang=en">
+<link rel="alternate" hreflang="x-default" href="https://ramiropiedrabuena.website/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Ramiro Piedrabuena">
+<meta property="og:url" content="https://ramiropiedrabuena.website/">
+<link rel="icon" href="img/background-1.webp">
+<link rel="stylesheet" href="css/styles.css?v=136">
+</head>
+<body>
+
+  <!-- ============ SUPERFICIE CON LOS TOKENS ============ -->
+  <main id="stage" class="stage" aria-label="Superficie con los proyectos">
+    <div id="tokens" class="tokens"></div>
+  </main>
+
+  <!-- Firma / utilidades de la superficie -->
+  <div class="stage-ui" id="stageUi">
+    <span class="stage-ui__name" id="siteName">Ramiro Piedrabuena</span>
+    <span class="stage-ui__langs" id="langSwitch">
+      <button type="button" class="stage-ui__btn" data-lang="en" aria-pressed="false" lang="en">ENG</button>
+      <button type="button" class="stage-ui__btn" data-lang="es" aria-pressed="false" lang="es">ESP</button>
+    </span>
+    <!-- al final: aparece sólo si el visitante movió algo, y así no deja un hueco -->
+    <button type="button" class="stage-ui__btn stage-ui__btn--reset" id="btnReset">reordenar</button>
+  </div>
+
+  <!-- Filtros por hashtag: se arman desde data/projects.json. Sin títulos:
+       los de industria se distinguen sólo por el fondo (ver styles.css). -->
+  <div class="filters" id="filters" hidden>
+    <div class="filters__group" data-group="category" hidden>
+      <span class="filters__tags"></span>
+    </div>
+    <div class="filters__group" data-group="industry" hidden>
+      <span class="filters__tags"></span>
+    </div>
+    <button type="button" class="stage-ui__btn" id="btnClearFilters" hidden></button>
+  </div>
+
+  <!-- ============ VISTA DE PROYECTO ============ -->
+  <section id="projectView" class="project" aria-hidden="true" tabindex="-1">
+    <!-- velo: desenfoca la superficie que queda debajo -->
+    <div class="project__veil" id="projectVeil"></div>
+    <button type="button" id="btnClose" class="project__close" aria-label="Cerrar proyecto">
+      <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+        <path d="M12 12 L36 36 M36 12 L12 36" />
+      </svg>
+    </button>
+    <button type="button" id="btnPrev" class="project__nav project__nav--prev"
+            data-centrar="translateY(-50%)" hidden>
+      <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+        <path d="M30 12 L18 24 L30 36" />
+      </svg>
+    </button>
+    <button type="button" id="btnNext" class="project__nav project__nav--next"
+            data-centrar="translateY(-50%)" hidden>
+      <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+        <path d="M18 12 L30 24 L18 36" />
+      </svg>
+    </button>
+    <div class="project__scroll" id="projectScroll">
+      <article class="project__body" id="projectBody"></article>
+      <footer class="project__foot">
+        <button type="button" class="project__back" id="btnBack" data-close>volver a la superficie</button>
+      </footer>
+    </div>
+  </section>
+
+  <noscript>
+    <p style="padding:2rem;font:16px system-ui;color:#273338;background:#fff">
+      Este portfolio necesita JavaScript activado.<br>
+      <span lang="en">This portfolio needs JavaScript enabled.</span>
+    </p>
+  </noscript>
+
+  <script src="js/i18n.js?v=136"></script>
+  <script src="js/project.js?v=136"></script>
+  <script src="js/app.js?v=136"></script>
+</body>
+</html>

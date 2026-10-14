@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CMS · Ramiro Piedrabuena</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="stylesheet" href="css/admin.css?v=59">
+</head>
+<body>
+
+<aside class="side">
+  <header class="side__head">
+    <h1 class="side__title">Portfolio<span>CMS</span></h1>
+  </header>
+
+  <!-- pestaña siempre visible -->
+  <button type="button" class="tab-new" id="btnNew">
+    <span class="tab-new__plus">+</span>
+    <span>Agregar nuevo proyecto</span>
+  </button>
+
+  <nav class="side__list" id="projectList" aria-label="Proyectos"></nav>
+
+  <footer class="side__foot">
+    <button type="button" class="side__link side__link--btn" id="btnPaginas">Páginas</button>
+    <button type="button" class="side__link side__link--btn" id="btnSite">Configuración</button>
+    <a class="side__link" href="../index.html" target="_blank" rel="noopener">Ver el sitio ↗</a>
+    <span class="side__url">ramiropiedrabuena.website</span>
+  </footer>
+</aside>
+
+<main class="main">
+
+  <div class="topbar">
+    <div class="topbar__left">
+      <div class="topbar__id" id="topId">—</div>
+      <div class="langsw" title="Idioma que estás editando">
+        <span class="langsw__label">Editando</span>
+        <button type="button" class="langsw__b is-on" data-edit-lang="en">EN</button>
+        <button type="button" class="langsw__b" data-edit-lang="es">ES</button>
+      </div>
+    </div>
+    <div class="topbar__actions">
+      <span class="status" id="status">listo</span>
+      <button type="button" class="btn btn--ghost" id="btnMobile">Vista celular</button>
+      <button type="button" class="btn btn--ghost" id="btnPreview" disabled>Previsualizar</button>
+      <button type="button" class="btn btn--danger" id="btnDelete" disabled>Eliminar</button>
+      <button type="button" class="btn btn--primary" id="btnSave" disabled>Guardar cambios</button>
+    </div>
+  </div>
+
+  <div class="empty" id="empty">
+    <p>Seleccioná un proyecto de la izquierda o creá uno nuevo.</p>
+  </div>
+
+  <!-- ============ PÁGINAS: editor visual de los .html de las carpetas ============ -->
+  <div class="paginas" id="paginasEditor" hidden>
+    <aside class="paginas__lista">
+      <div class="paginas__cab">
+        <span>Páginas</span>
+        <button type="button" class="btn btn--tiny" id="pagNueva">Nueva</button>
+      </div>
+      <div id="pagLista" class="paginas__items"></div>
+    </aside>
+    <section class="paginas__main">
+      <div class="pag-info">
+        <span class="pag-info__ruta" id="pagRuta">Elegí una página de la lista.</span>
+        <span class="pag-info__estado" id="pagEstado"></span>
+        <a class="btn btn--tiny" id="pagAbrir" target="_blank" rel="noopener" hidden>Abrir ↗</a>
+        <button type="button" class="btn btn--tiny" id="pagModo" disabled>Código</button>
+        <button type="button" class="btn btn--primary btn--tiny" id="pagGuardar" disabled>Guardar página</button>
+      </div>
+      <div class="pag-barra" id="pagBarra"></div>
+      <div class="pag-lienzo">
+        <iframe id="pagMarco" title="Página en edición"></iframe>
+        <textarea id="pagCodigo" spellcheck="false" wrap="off" hidden></textarea>
+      </div>
+      <!-- ventanitas de link e imagen -->
+      <div class="pag-pop" id="popLink" hidden>
+        <label class="field"><span>Dirección del link</span><input type="text" id="linkUrl" placeholder="https://…  ·  archivo.pdf  ·  /keysense/terms"></label>
+        <label class="field"><span>O elegí</span><select id="linkSugerencias"></select></label>
+        <label class="toggle"><input type="checkbox" id="linkPestana"> Abrir en otra pestaña</label>
+        <div class="pag-pop__acciones">
+          <button type="button" class="btn btn--tiny" id="linkQuitar">Quitar link</button>
+          <button type="button" class="btn btn--tiny" id="linkCancelar">Cancelar</button>
+          <button type="button" class="btn btn--primary btn--tiny" id="linkAplicar">Aplicar</button>
+        </div>
+      </div>
+      <div class="pag-pop pag-pop--img" id="popImg" hidden>
+        <span class="pag-pop__titulo">Imágenes de la carpeta · clic para insertar</span>
+        <div class="pag-pop__imgs" id="imgLista"></div>
+        <div class="pag-pop__acciones">
+          <button type="button" class="btn btn--tiny" id="imgSubir">Subir imagen</button>
+          <input type="file" id="imgArchivo" accept="image/*" multiple hidden>
+          <button type="button" class="btn btn--tiny" id="imgCancelar">Cerrar</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ============ SITIO: FONDO ============ -->
+  <div class="editor" id="siteEditor" hidden>
+    <section class="card">
+      <h2 class="card__title">Fondo del sitio</h2>
+
+      <div class="grid2">
+        <label class="field">
+          <span>Imagen</span>
+          <input type="text" id="bgImage" placeholder="img/fondo.webp  ·  o una URL  ·  vacío = sin imagen">
+        </label>
+        <div class="field">
+          <span>Archivo</span>
+          <div class="row-btns">
+            <input type="file" id="bgFile" accept="image/*,.avif" hidden>
+            <button type="button" class="btn btn--tiny" id="bgPick">Subir imagen</button>
+            <button type="button" class="btn btn--tiny" id="bgClear">Quitar imagen</button>
+          </div>
+        </div>
+
+        <label class="field">
+          <span>Repetición</span>
+          <select id="bgRepeat">
+            <option value="repeat">repeat — se repite en los dos ejes</option>
+            <option value="repeat-x">repeat-x — sólo en horizontal</option>
+            <option value="repeat-y">repeat-y — sólo en vertical</option>
+            <option value="no-repeat">no-repeat — una sola vez</option>
+            <option value="space">space — se repite sin recortar, repartiendo el sobrante</option>
+            <option value="round">round — se repite estirando para que entre justo</option>
+          </select>
+        </label>
+
+        <label class="field">
+          <span>Tamaño</span>
+          <select id="bgSize">
+            <option value="auto">auto — tamaño real del archivo</option>
+            <option value="cover">cover — cubre toda la pantalla</option>
+            <option value="contain">contain — entra entera en la pantalla</option>
+            <option value="custom">personalizado…</option>
+          </select>
+        </label>
+        <label class="field" id="bgSizeCustomField" hidden>
+          <span>Tamaño personalizado</span>
+          <input type="text" id="bgSizeCustom" placeholder="400px  ·  50%  ·  200px 120px">
+        </label>
+
+        <label class="field">
+          <span>Posición</span>
+          <select id="bgPosition">
+            <option value="left top">izquierda arriba</option>
+            <option value="center top">centro arriba</option>
+            <option value="right top">derecha arriba</option>
+            <option value="left center">izquierda centro</option>
+            <option value="center center">centro</option>
+            <option value="right center">derecha centro</option>
+            <option value="left bottom">izquierda abajo</option>
+            <option value="center bottom">centro abajo</option>
+            <option value="right bottom">derecha abajo</option>
+            <option value="custom">personalizada…</option>
+          </select>
+        </label>
+        <label class="field" id="bgPositionCustomField" hidden>
+          <span>Posición personalizada</span>
+          <input type="text" id="bgPositionCustom" placeholder="20px 40px  ·  50% 10%">
+        </label>
+
+        <label class="field">
+          <span>Fijación</span>
+          <select id="bgAttachment">
+            <option value="scroll">scroll — el fondo acompaña al scroll</option>
+            <option value="fixed">fixed — el fondo queda quieto</option>
+            <option value="local">local — acompaña al contenido</option>
+          </select>
+        </label>
+
+        <label class="field">
+          <span>Color detrás de la imagen</span>
+          <span class="hex"><i class="hex__muestra" aria-hidden="true"></i><input type="text" id="bgColor" value="#ebebeb" spellcheck="false" autocomplete="off"></span>
+        </label>
+      </div>
+
+      <p class="hint-line">Vista previa del mosaico, a escala real, con los
+        elementos del sitio encima para ver cómo contrastan:</p>
+      <div class="bg-preview" id="bgPreview">
+        <div class="bg-preview__ui" id="bgPreviewUi">
+          <span>Ramiro Piedrabuena</span>
+          <span class="bg-preview__btn">reordenar</span>
+          <span class="bg-preview__btn is-on">ENG</span>
+          <span class="bg-preview__btn">ESP</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 class="card__title">Archivos sin usar</h2>
+      <p class="hint-line">Busca archivos en <code>projects/</code> y <code>img/</code>
+        que ya no estén referenciados en ningún proyecto: tokens viejos que
+        reemplazaste, imágenes que sacaste de una página. Primero los lista;
+        recién después, si se lo pedís, los aparta. <strong>No se borra nada</strong>:
+        se mueven a una carpeta <code>.papelera</code> por si los necesitás.</p>
+      <div class="row-btns">
+        <button type="button" class="btn btn--tiny" id="btnScanFiles">Buscar archivos sin usar</button>
+        <button type="button" class="btn btn--danger btn--tiny" id="btnCleanFiles" disabled>Mover a la papelera</button>
+      </div>
+      <div class="unused" id="unusedList"></div>
+    </section>
+
+    <section class="card">
+      <h2 class="card__title">Elementos sobre el fondo</h2>
+      <p class="hint-line">La firma, los botones, las etiquetas y los hashtags
+        de la superficie. Elegí el juego que contraste con tu fondo.</p>
+      <div class="grid2">
+        <label class="field">
+          <span>Tema</span>
+          <select id="uiTheme">
+            <option value="dark">Oscuro — elementos claros, para fondos oscuros</option>
+            <option value="clear">Claro — elementos oscuros, para fondos claros</option>
+          </select>
+        </label>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 class="card__title">Hashtags</h2>
+      <p class="hint-line">Renombrar acá cambia el hashtag en todo el sitio: en
+        los filtros y en cada proyecto que lo tenga. El español sigue al inglés
+        mientras no lo toques (se ve apagado y en cursiva); escribí en él y
+        queda tuyo, vacialo y vuelve a seguir al inglés.</p>
+      <div class="sitetags" id="siteTags"></div>
+    </section>
+
+    <section class="card">
+      <h2 class="card__title">Sitio en mantenimiento</h2>
+      <p class="hint-line">Activado, el sitio no muestra los proyectos: sólo este
+        aviso (en el idioma del visitante), con el fondo, tu nombre y el cambio de
+        idioma. Las páginas HTML de las carpetas (como los términos de Keysense)
+        siguen abiertas. Guardá, y para que llegue al sitio publicado, armá el zip
+        y subilo a Netlify.</p>
+      <div class="grid2">
+        <label class="field">
+          <span>Estado</span>
+          <select id="mantOn">
+            <option value="no">Desactivado — el sitio se ve normal</option>
+            <option value="si">Activado — sólo el aviso de mantenimiento</option>
+          </select>
+        </label>
+      </div>
+      <div class="grid2">
+        <label class="field">
+          <span>Aviso en inglés</span>
+          <textarea id="mantEn" rows="2" spellcheck="false"></textarea>
+        </label>
+        <label class="field">
+          <span>Aviso en español</span>
+          <textarea id="mantEs" rows="2" spellcheck="false"></textarea>
+        </label>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 class="card__title">Publicar en Netlify</h2>
+      <p class="hint-line">Arma el zip para subir a Netlify con lo que está
+        guardado: verifica el código, deja afuera el panel, el servidor y los
+        archivos que nada usa, y agrega las direcciones cortas. Queda en
+        <code>H:\ramiropiedrabuena\ramiropiedrabuena-netlify.zip</code>:
+        arrastralo entero, sin descomprimir, a Deploys en Netlify.</p>
+      <div class="drop__actions">
+        <button type="button" class="btn btn--primary btn--tiny" id="btnPack">Armar zip para Netlify</button>
+      </div>
+      <div class="pack" id="packResultado" hidden></div>
+    </section>
+
+    <section class="card">
+      <h2 class="card__title">Direcciones cortas</h2>
+      <p class="hint-line">Una dirección corta lleva a un archivo del sitio sin
+        mostrar su ruta: <code>ramiropiedrabuena.website/keysense/terms</code> en vez
+        de <code>…/projects/keysense/terms.en.html</code>. Usala en los botones
+        (aparece en "Página del sitio"). Si va dentro de una carpeta
+        (<code>/keysense/…</code>), los links y archivos relativos de esa página
+        también funcionan. Se guardan con "Guardar cambios".</p>
+      <div class="atajos" id="atajos"></div>
+      <button type="button" class="btn btn--tiny" id="atajoNuevo">Agregar dirección corta</button>
+    </section>
+  </div>
+
+  <form class="editor" id="editor" hidden autocomplete="off">
+
+    <!-- ============ TIPO ============ -->
+    <section class="card">
+      <h2 class="card__title">Tipo de página</h2>
+      <div class="grid grid--2">
+        <label class="field">
+          <span>Qué es</span>
+          <select id="fKind">
+            <option value="project">Proyecto de portfolio</option>
+            <option value="page">Subpágina (armada con bloques)</option>
+            <option value="html">Página HTML de la carpeta</option>
+          </select>
+        </label>
+        <label class="field">
+          <span>Token en la superficie</span>
+          <select id="fShowToken">
+            <option value="si">Sí, tiene token</option>
+            <option value="no">No: se llega desde otra página</option>
+          </select>
+        </label>
+      </div>
+      <p class="hint-line" id="kindHint" hidden></p>
+    </section>
+
+    <!-- ============ DATOS ============ -->
+    <section class="card">
+      <h2 class="card__title">Datos del proyecto</h2>
+      <div class="grid grid--2">
+        <label class="field field--tr">
+          <span>Título</span>
+          <span class="trad" id="wrapTitle"><input type="text" id="fTitle" placeholder="Nombre del proyecto"></span>
+        </label>
+        <label class="field field--tr">
+          <span>Subtítulo</span>
+          <span class="trad" id="wrapSubtitle"><input type="text" id="fSubtitle" placeholder="Bajada corta"></span>
+        </label>
+        <label class="field" id="campoYear">
+          <span>Año</span>
+          <input type="text" id="fYear" placeholder="2026">
+        </label>
+        <label class="field field--tr" id="campoRole">
+          <span>Rol / cliente</span>
+          <span class="trad" id="wrapRole"><input type="text" id="fRole" placeholder="Dirección de arte · Cliente"></span>
+        </label>
+        <label class="field">
+          <span>Velo sobre la superficie</span>
+          <select id="fTheme">
+            <option value="dark">Oscuro (texto claro)</option>
+            <option value="light">Claro (texto oscuro)</option>
+          </select>
+        </label>
+        <div class="field">
+          <span>Identificador (carpeta)</span>
+          <div class="idcarpeta">
+            <input type="text" id="fId" readonly>
+            <button type="button" class="btn btn--tiny" id="btnRename">Renombrar</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ TOKEN ============ -->
+    <section class="card" id="cardToken">
+      <h2 class="card__title">Token en la superficie</h2>
+      <div class="token-editor">
+
+        <div class="token-editor__left">
+          <div class="drop" id="tokenDrop">
+            <img id="tokenPreview" alt="" hidden>
+            <p class="drop__text">Arrastrá acá la imagen del token<br><small>PNG, WEBP, AVIF, JPG, GIF, SVG o Lottie .json</small></p>
+            <input type="file" id="tokenFile" accept="image/*,.avif,.json" hidden>
+            <button type="button" class="btn btn--tiny" id="btnTokenPick">Elegir archivo</button>
+          </div>
+
+          <div class="drop" id="hoverDrop">
+            <img id="hoverPreview" alt="" hidden>
+            <p class="drop__file" id="hoverNote" hidden></p>
+            <p class="drop__text">Al pasar el cursor<br><small>opcional · PNG, WEBP, AVIF o GIF (animados o no) · WebM · Lottie .json</small></p>
+            <input type="file" id="hoverFile" accept="image/*,.avif,video/webm,.webm,.json,.lottie" hidden>
+            <div class="drop__actions">
+              <button type="button" class="btn btn--tiny" id="btnHoverPick">Elegir archivo</button>
+              <button type="button" class="btn btn--tiny" id="btnHoverClear" hidden>Quitar</button>
+            </div>
+          </div>
+
+          <label class="toggle" id="hoverLoopWrap" hidden>
+            <input type="checkbox" id="fHoverLoop" checked>
+            Repetir en bucle mientras el cursor está encima
+          </label>
+
+          <label class="field">
+            <span>Rayones al pasar el cursor</span>
+            <select id="fHoverFx">
+              <option value="none">Ninguno</option>
+              <option value="scribble">Garabatos de lapicera</option>
+            </select>
+          </label>
+          <label class="field" id="inkColorWrap" hidden>
+            <span>Color de la lapicera</span>
+            <span class="hex"><i class="hex__muestra" aria-hidden="true"></i><input type="text" id="fInkColor" value="#251a57" spellcheck="false" autocomplete="off"></span>
+          </label>
+          <label class="field">
+            <span>Baile 3D al pasar el cursor</span>
+            <select id="fFloat">
+              <option value="no">No</option>
+              <option value="si">Sí — se acerca y gira a un lado y al otro</option>
+            </select>
+          </label>
+          <p class="hint-line" id="floatHint" hidden></p>
+          <label class="field">
+            <span>Trazos animados al pasar el cursor</span>
+            <select id="fStrokes">
+              <option value="si">Sí — las líneas del SVG se animan</option>
+              <option value="no">No — las líneas del SVG se ven siempre</option>
+            </select>
+          </label>
+          <label class="toggle" id="strokesLoopWrap" hidden>
+            <input type="checkbox" id="fStrokesLoop" checked>
+            Repetir en bucle (loop) mientras el cursor está encima
+          </label>
+          <p class="hint-line" id="strokesHint" hidden></p>
+          <p class="hint-line" id="inkHint" hidden>Se dibujan solos encima del token
+            mientras el cursor está arriba: zigzags, bucles, rectas, círculos y
+            espirales, sorteados cada vez. Conviven con la imagen de hover, y se
+            cortan apenas agarrás el token para moverlo.</p>
+
+          <label class="field">
+            <span>Mancha de acuarela al pasar el cursor</span>
+            <select id="fWcOn">
+              <option value="no">Ninguna</option>
+              <option value="si">Sí, que se esparza</option>
+            </select>
+          </label>
+          <div id="wcWrap" hidden>
+            <div class="row-btns">
+              <label class="field field--inline"><span>Tinta 1</span><span class="hex"><i class="hex__muestra" aria-hidden="true"></i><input type="text" id="fWc1" value="#ff5221" spellcheck="false" autocomplete="off"></span></label>
+              <label class="field field--inline"><span>Tinta 2</span><span class="hex"><i class="hex__muestra" aria-hidden="true"></i><input type="text" id="fWc2" value="#ff5221" spellcheck="false" autocomplete="off"></span></label>
+              <label class="field field--inline"><span>Tinta 3</span><span class="hex"><i class="hex__muestra" aria-hidden="true"></i><input type="text" id="fWc3" value="#ff5221" spellcheck="false" autocomplete="off"></span></label>
+            </div>
+            <label class="field">
+              <span>Dónde va la tinta</span>
+              <select id="fWcLayer">
+                <option value="under">Debajo — pasa por detrás, sin mancharlo</option>
+                <option value="over">Encima — mancha el dibujo</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Cómo se mezcla con el papel y el dibujo</span>
+              <select id="fWcBlend">
+                <option value="normal">Normal — la tinta tapa</option>
+                <option value="multiply">Multiplicar — la tinta oscurece y deja ver el grano, para fondos claros</option>
+                <option value="color-burn">Subexponer color — la tinta se hunde en el papel, más intensa en los poros</option>
+                <option value="soft-light">Luz suave — un velo de color, casi absorbido por el papel</option>
+                <option value="darken">Oscurecer — sólo tiñe donde el papel es más claro que la tinta</option>
+                <option value="screen">Trama — la tinta aclara, para fondos oscuros</option>
+                <option value="overlay">Superponer — sube el contraste</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Intensidad <b id="outWcOp">100</b>%</span>
+              <input type="range" id="fWcOp" min="20" max="100" step="5" value="100">
+            </label>
+            <p class="hint-line">La mancha crece despacio, como si el papel absorbiera
+              la tinta, y al sacar el cursor se retira por donde vino. Cada vez sale
+              distinta: cambian la semilla del ruido, el tamaño y el lugar de cada
+              mancha. Se puede usar junto con los rayones o por separado.</p>
+          </div>
+
+          <label class="field">
+            <span>Ancho del token <input type="number" id="outWidth" class="num-inline" min="20" max="4000" step="1" value="200" aria-label="Ancho del token en px"> px <em id="outNatural"></em></span>
+            <input type="range" id="fWidth" min="20" max="1200" step="1" value="200">
+          </label>
+          <button type="button" class="btn btn--tiny" id="btnRealSize" disabled>Volver al tamaño real del archivo</button>
+
+          <label class="field">
+            <span>Rotación inicial <b id="outRot">0</b>°</span>
+            <input type="range" id="fRot" min="-180" max="180" step="1" value="0">
+          </label>
+        </div>
+
+        <div class="token-editor__right">
+          <p class="hint-line">Arrastrá el token dentro del recuadro para elegir dónde aparece al abrir el sitio. Girá con la rueda del mouse o con el control de rotación. <span id="miniRef"></span></p>
+          <div class="mini" id="mini">
+            <div class="mini__grid"></div>
+            <div class="mini__ghosts" id="miniGhosts"></div>
+            <div class="mini__token" id="miniToken"><img id="miniImg" alt=""></div>
+          </div>
+          <div class="mini__coords">
+            <label class="field field--inline"><span>X</span><input type="number" id="fX" min="0" max="1" step="0.01" value="0.5"></label>
+            <label class="field field--inline"><span>Y</span><input type="number" id="fY" min="0" max="1" step="0.01" value="0.5"></label>
+            <button type="button" class="btn btn--tiny" id="btnCenter">Centrar</button>
+            <button type="button" class="btn btn--tiny" id="btnRandom">Al azar</button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============ HASHTAGS ============ -->
+    <section class="card" id="cardTags">
+      <h2 class="card__title">Hashtags</h2>
+      <p class="hint-line">
+        Elegí los hashtags de este proyecto. En el sitio aparecen abajo a la derecha y
+        filtran los tokens. Los nombres se traducen: pasá el selector de arriba a
+        <b>EN</b> para escribir la versión en inglés.
+      </p>
+      <div class="taggroups" id="tagEditor"></div>
+    </section>
+
+    <!-- ============ PÁGINA HTML ============ -->
+    <section class="card" id="cardHtml" hidden>
+      <h2 class="card__title">Página HTML</h2>
+      <p class="hint-line">
+        La página vive en la carpeta del proyecto y se ve entera dentro de la
+        ventana del sitio. Los archivos de la carpeta se nombran tal cual
+        (<code>foto.jpg</code>). Un link a otra página del sitio
+        (<code>&lt;a href="#/p/nombre"&gt;</code>) la abre en una ventana encima.
+      </p>
+      <div class="html-barra">
+        <label class="field">
+          <span>Archivo</span>
+          <select id="htmlArchivo"></select>
+        </label>
+        <button type="button" class="btn btn--tiny" id="htmlNueva">Nueva página</button>
+        <button type="button" class="btn btn--tiny" id="htmlGuardar" disabled>Guardar HTML</button>
+        <button type="button" class="btn btn--tiny" id="htmlVisual">Editar en Páginas</button>
+        <span class="html-estado" id="htmlEstado"></span>
+      </div>
+      <div class="html-editor">
+        <textarea id="htmlCodigo" spellcheck="false" wrap="off" placeholder="Elegí un archivo o creá una página nueva."></textarea>
+        <iframe id="htmlVista" title="Vista previa de la página"></iframe>
+      </div>
+      <div class="html-archivos">
+        <span class="html-archivos__titulo">Archivos de la carpeta · clic para insertarlo donde está el cursor</span>
+        <div class="html-archivos__lista" id="htmlLista"></div>
+        <button type="button" class="btn btn--tiny" id="htmlSubir">Subir archivo a la carpeta</button>
+        <input type="file" id="htmlSubirArchivo" multiple hidden>
+      </div>
+    </section>
+
+    <!-- ============ CONTENIDO ============ -->
+    <section class="card" id="cardBlocks">
+      <h2 class="card__title">Contenido de la página</h2>
+
+      <div class="addbar">
+        <button type="button" class="chip" data-add="title">Título</button>
+        <button type="button" class="chip" data-add="subtitle">Subtítulo</button>
+        <button type="button" class="chip" data-add="body">Texto</button>
+        <button type="button" class="chip" data-add="quote">Cita</button>
+        <button type="button" class="chip" data-add="file">Imagen o archivo</button>
+        <button type="button" class="chip" data-add="button">Botón</button>
+        <button type="button" class="chip" data-add="youtube">YouTube</button>
+        <button type="button" class="chip" data-add="vimeo">Vimeo</button>
+        <button type="button" class="chip" data-add="iframe">Embed / iframe</button>
+        <button type="button" class="chip" data-add="soundcloud">SoundCloud</button>
+        <button type="button" class="chip" data-add="bandcamp">Bandcamp</button>
+        <button type="button" class="chip" data-add="divider">Separador</button>
+      </div>
+
+      <div class="blocks" id="blocks"></div>
+      <p class="blocks__empty" id="blocksEmpty">Todavía no hay bloques. Soltá archivos arriba o agregá texto.</p>
+    </section>
+
+  </form>
+</main>
+
+<div class="toast" id="toast" hidden></div>
+
+<!-- Vista en celular: el sitio de verdad, en un iframe del tamaño de un teléfono -->
+<div class="celular" id="celular" hidden>
+  <div class="celular__barra">
+    <button type="button" class="btn btn--tiny" data-cel-ver="inicio">Superficie</button>
+    <button type="button" class="btn btn--tiny" data-cel-ver="proyecto" id="celProyecto">Este proyecto</button>
+    <button type="button" class="btn btn--tiny" id="celRecargar">Recargar</button>
+    <button type="button" class="btn btn--tiny" id="celCerrar">Cerrar</button>
+  </div>
+  <div class="celular__lugar">
+    <div class="celular__marco">
+      <iframe id="celFrame" title="Vista en celular" width="390" height="844"></iframe>
+    </div>
+  </div>
+  <p class="celular__nota">390 × 844 · muestra lo guardado</p>
+</div>
+
+<script src="js/admin.js?v=78"></script>
+</body>
+</html>

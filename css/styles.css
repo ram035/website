@@ -1,0 +1,862 @@
+/* =========================================================
+   Ramiro Piedrabuena — portfolio
+   https://ramiropiedrabuena.website
+   Todas las rutas son relativas: funciona igual en local,
+   en un subdirectorio o en la raíz del dominio.
+   ========================================================= */
+
+:root{
+  --ink:#273338;
+  --paper:#ffffff;
+  --surface-fg:#e9e6e0;
+  /* El color que se ve mientras llega la imagen del fondo: el promedio del
+     papel (medido). Con uno oscuro, la página aparecía negra y de golpe se
+     ponía clara. Si el fondo cambia, conviene medirlo de nuevo. */
+  --surface-bg:#ebebeb;
+  --ui-font: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Inter, Helvetica, Arial, sans-serif;
+  --close-size: 82px;
+  --safe: env(safe-area-inset-top, 0px);
+}
+
+*,*::before,*::after{ box-sizing:border-box; }
+
+/* El atributo [hidden] trae display:none del navegador, pero cualquier regla
+   de display escrita acá le gana. Sin esto, todo lo que se oculta con .hidden
+   desde JS sigue viéndose. */
+[hidden]{ display:none !important; }
+
+
+html,body{ height:100%; }
+
+body{
+  margin:0;
+  font-family:var(--ui-font);
+  color:var(--ink);
+  /* Valores por defecto. Si data/projects.json trae site.background, app.js
+     los pisa; sin datos el sitio se ve igual que siempre. */
+  background-color:var(--surface-bg);
+  background-image:url("../img/background-1.webp");
+  background-repeat:repeat;
+  background-size:auto;             /* el tile va a su tamaño real */
+  background-position:left top;
+  background-attachment:scroll;
+  overflow-x:hidden;
+  overflow-y:auto;                  /* la superficie puede crecer hacia abajo */
+  overscroll-behavior:none;
+  -webkit-tap-highlight-color:transparent;
+}
+
+body.is-project-open{ overflow:hidden; }
+
+/* ---------------------------------------------------------
+   SUPERFICIE
+   --------------------------------------------------------- */
+.stage{
+  position:relative;
+  width:100%;
+  min-height:100vh;
+  /* pan-y deja que el dedo scrollee sobre el fondo; los tokens
+     tienen touch-action:none y por eso se arrastran igual */
+  touch-action:pan-y;
+  /* recorta lo que asoma del borde para que no aparezca scroll fantasma */
+  overflow:hidden;
+  -webkit-user-select:none;
+  user-select:none;
+}
+
+.tokens{ position:absolute; inset:0; }
+
+/* ---------- token ---------- */
+.token{
+  position:absolute;
+  top:0; left:0;
+  margin:0;
+  padding:0;
+  border:0;
+  background:transparent;
+  display:block;
+  cursor:pointer;
+  will-change:transform;
+  touch-action:none;
+  -webkit-user-select:none;
+  user-select:none;
+  transform-origin:50% 50%;
+}
+
+.token.is-active{ z-index:50; }
+
+/* Hasta que la imagen no está decodificada el token no se muestra: si no,
+   se dibuja un cuadro con la proporción supuesta y después salta a la real.
+   Es visibility, no opacidad: aparece de una, sin fundido. */
+.token{ visibility:hidden; }
+.token.is-ready{ visibility:visible; }
+
+.token__img{
+  display:block;
+  width:100%;
+  height:auto;
+  pointer-events:none;
+  -webkit-user-drag:none;
+  user-select:none;
+  will-change:opacity;
+  /* Sin transiciones acá: una transición de opacidad en común pisaba —por
+     especificidad— el relevo instantáneo de la imagen base y hacía pestañear
+     el token al soltarlo. */
+}
+
+/* imagen opcional de hover: ocupa la misma caja, con su propio fundido */
+.token__img--hover{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  opacity:0;
+  transition:opacity .18s ease;
+}
+.token.has-hover.is-hover  .token__img--hover,
+.token.has-hover:focus-visible .token__img--hover{ opacity:1; }
+
+/* Nada de cross-fade: si las dos imágenes se funden a la vez, en el medio
+   quedan las dos traslúcidas, se ve el fondo a través y el token parece
+   pestañear. La base no se atenúa nunca: espera quieta a que la de hover
+   la tape del todo y recién ahí se apaga de golpe (y vuelve al instante). */
+.token__img--base{
+  transition:opacity 0s linear 0s;
+}
+.token.has-hover.is-hover  .token__img--base,
+.token.has-hover:focus-visible .token__img--base{
+  opacity:0;
+  transition:opacity 0s linear .2s;
+}
+
+
+/* Trazos animados: la copia en línea del SVG sólo se ve mientras se anima;
+   en reposo, la imagen del token tal cual. */
+.token__trazos{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  overflow:visible;
+  pointer-events:none;
+  opacity:0;
+}
+.token.trazos-on .token__trazos{ opacity:1; }
+.token.trazos-on .token__img--base,
+.token.trazos-espera .token__img--base{ opacity:0; }
+
+/* Token que es un Lottie: ocupa la caja entera del token. */
+.token__img.token__anim{ width:100%; height:100%; }
+.token__anim svg{ display:block; width:100% !important; height:100% !important; }
+
+/* Lottie de hover: aparece mientras se anima (.lottie-play: desde que entra
+   el cursor hasta que termina la vuelta en curso, aunque el cursor ya se haya
+   ido).
+   En reposo se ve el archivo del token (su primer fotograma, dibujado por
+   Lottie, no siempre coincide con el dibujo y dejaba los bordes desparejos). */
+.token__lottie{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .2s ease;
+}
+.token__lottie svg{ display:block; width:100% !important; height:100% !important; }
+.token.lottie-ready.lottie-play .token__lottie,
+.token.lottie-ready:focus-visible .token__lottie{ opacity:1; transition:none; }
+.token.lottie-ready.lottie-play .token__img--base,
+.token.lottie-ready:focus-visible .token__img--base,
+.token.lottie-ready.lottie-play .token__trazos,
+.token.lottie-ready:focus-visible .token__trazos{
+  opacity:0;
+  transition:opacity 0s linear .03s;
+}
+
+/* sin anillos ni handles sobre el token.
+   El foco por teclado sí necesita una marca visible. */
+.token:focus-visible{
+  outline:2px solid var(--paper);
+  outline-offset:7px;
+}
+
+/* ---------- mancha de acuarela ----------
+   Un canvas hermano del token (no hijo: el token es un grupo aislado por su
+   transform y la mezcla no llegaría al papel). app.js lo ubica, le copia el
+   transform y el z-index del token, y lo pone justo antes (debajo) o justo
+   después (encima) en el DOM. Así mix-blend-mode actúa contra el papel real
+   y el grano del fondo se ve a través de la tinta. --wc-op es la intensidad. */
+.token__wc{
+  position:absolute;
+  left:0;
+  top:0;
+  pointer-events:none;
+  opacity:0;
+  /* Capa propia y fija, y sin transición de opacidad. Un elemento con
+     mix-blend-mode que cambia de capa (por una animación suya o de un vecino,
+     como la etiqueta del token al salir del hover) puede dibujarse un cuadro
+     sin mezcla: se veía como un pestañeo. La transición tampoco hace falta:
+     el canvas se prende vacío y se apaga vacío; lo que se ve aparecer y
+     retirarse es el mapa de llegada que dibuja app.js. */
+  will-change:transform;
+}
+.token__wc.is-on{ opacity:var(--wc-op, 1); }
+/* Apagada, la capa sale del dibujo del todo: una capa con modo de mezcla,
+   aunque sea invisible, le complica el trabajo al compositor. */
+.token__wc:not(.is-on){ display:none; }
+
+@media (prefers-reduced-motion: reduce){
+  .token__wc{ display:none; }
+}
+
+/* ---------- rayones de lapicera ----------
+   Una capa de garabatos que se dibujan encima del token mientras el cursor
+   está arriba. Se generan nuevos cada vez, así que nunca sale el mismo dos
+   veces. No tocan nada del token: viven en su propia capa y no reciben clics. */
+.token__scribble{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  overflow:visible;
+  pointer-events:none;
+  opacity:0;
+  transition:opacity .22s ease;
+}
+.token.is-hover .token__scribble{ opacity:1; transition:opacity .06s linear; }
+/* al salir del hover la capa sigue visible mientras los trazos se recogen */
+.token__scribble.is-borrando{ opacity:1; transition:none; }
+
+/* Es un efecto de hover y nada más: apenas se agarra el token, se van. */
+.token.is-active .token__scribble{ opacity:0; transition:opacity .10s linear; }
+.token__scribble path{
+  fill:none;
+  stroke:var(--tinta, #251a57);
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+
+/* Con movimiento reducido no se dibuja nada. */
+@media (prefers-reduced-motion: reduce){
+  .token__scribble{ display:none; }
+}
+
+
+/* placeholder si falta la imagen del token */
+.token__fallback{
+  width:100%;
+  aspect-ratio:16/10;
+  display:grid;
+  place-items:center;
+  background:var(--paper);
+  color:var(--ink);
+  font-size:12px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
+
+/* ---------- UI de la superficie ---------- */
+/* ---------------------------------------------------------
+   ELEMENTOS SOBRE EL FONDO — dos juegos completos
+
+   Todo lo que tiene que contrastar contra el fondo (la firma, los
+   botones, las etiquetas y los hashtags) toma sus colores de esta
+   lista y de ninguna otra parte. Hay dos juegos con exactamente los
+   mismos nombres: "dark" para fondos oscuros y "clear" para fondos
+   claros. Se elige en Configuración, dentro del panel, y llega al
+   sitio como <html data-ui="…">.
+
+   La publicación de un proyecto NO entra acá: flota sobre su propio
+   velo y ya tiene su tema por proyecto.
+   --------------------------------------------------------- */
+.stage-ui,
+.filters,
+.mantenimiento{
+  --surface-fg:#e9e6e0;
+  --ui-fill:rgba(255,255,255,.10);
+  --ui-fill-hover:rgba(255,255,255,.22);
+  --ui-fill-on:rgba(255,255,255,.28);
+  --ui-line:rgba(233,230,224,.35);
+  --ui-fg-on:#ffffff;
+  --ui-fg-invertido:#0d1416;   /* texto sobre un relleno sólido del color del texto */
+}
+
+:root[data-ui="clear"] .stage-ui,
+:root[data-ui="clear"] .filters,
+:root[data-ui="clear"] .mantenimiento{
+  --surface-fg:#1d272b;
+  --ui-fill:rgba(29,39,43,.07);
+  --ui-fill-hover:rgba(29,39,43,.15);
+  --ui-fill-on:rgba(29,39,43,.20);
+  --ui-line:rgba(29,39,43,.38);
+  --ui-fg-on:#0d1416;
+  --ui-fg-invertido:#ffffff;
+}
+
+.stage-ui{
+  position:fixed;
+  left:22px;
+  bottom:20px;
+  z-index:80;
+  display:flex;
+  align-items:center;
+  gap:14px;
+  font-size:12px;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--surface-fg);
+}
+.stage-ui__name{ font-weight:600; }
+
+/* Sitio en mantenimiento (app.js): sólo el aviso, la firma y el idioma. */
+.mantenimiento{
+  position:fixed;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  width:min(560px, calc(100vw - 32px));
+  margin:0;
+  text-align:center;
+  font-size:15px;
+  line-height:1.6;
+  letter-spacing:.04em;
+  color:var(--surface-fg);
+}
+body.en-mantenimiento .stage,
+body.en-mantenimiento .filters,
+body.en-mantenimiento .project,
+body.en-mantenimiento #btnReset{ display:none !important; }
+.stage-ui__btn{
+  font:inherit;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--surface-fg);
+  background:var(--ui-fill);
+  border:1px solid var(--ui-line);
+  border-radius:2px;
+  padding:5px 10px;
+  cursor:pointer;
+  transition:opacity .2s ease, transform .2s ease, background .2s ease, border-color .2s ease;
+}
+.stage-ui__btn:hover{ background:var(--ui-fill-hover); }
+
+/* "reordenar" aparece recién cuando el visitante movió algo */
+.stage-ui__btn--reset{
+  opacity:0;
+  transform:translateY(3px);
+  pointer-events:none;
+}
+.stage-ui.is-dirty .stage-ui__btn--reset{
+  opacity:1;
+  transform:none;
+  pointer-events:auto;
+}
+
+/* selector de idioma */
+.stage-ui__langs{ display:inline-flex; gap:6px; }
+.stage-ui__btn[aria-pressed="true"]{
+  background:var(--ui-fill-on);
+  border-color:var(--surface-fg);
+  color:var(--ui-fg-on);
+  cursor:default;
+}
+
+/* ---------- filtros por hashtag ---------- */
+/* Todos los hashtags juntos, en un solo bloque que se parte en líneas y se
+   alinea a la derecha, sin títulos. Si un hashtag es de categoría o de
+   industria es un dato del panel; en el sitio lo único que cambia es el
+   fondo: los de industria, oscuros. "ver todos" va al final del bloque. */
+.filters{
+  position:fixed;
+  right:22px;
+  bottom:20px;
+  z-index:80;
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+  gap:6px;
+  max-width:min(60vw, 720px);
+}
+/* los grupos no arman filas propias: sus hashtags fluyen en el mismo bloque */
+.filters__group,
+.filters__tags{ display:contents; }
+
+.filters .stage-ui__btn{
+  font-size:9.5px;
+  line-height:1;
+  letter-spacing:.11em;
+  padding:2px 7px;
+  /* el texto cambia junto con el fondo: si no, al elegir uno se ve un
+     instante el texto claro sobre el fondo claro */
+  transition:background .2s ease, border-color .2s ease, color .2s ease;
+}
+.filters .stage-ui__btn[data-group="industry"]{
+  background:var(--ui-fill-on);
+  border-color:var(--surface-fg);
+  color:var(--ui-fg-on);
+}
+/* Elegido: relleno sólido, igual para los dos tipos. Con el oscuro de antes,
+   un hashtag de categoría elegido se veía igual que uno de industria. */
+.filters .stage-ui__btn[aria-pressed="true"]{
+  background:var(--surface-fg);
+  border-color:var(--surface-fg);
+  color:var(--ui-fg-invertido);
+  cursor:pointer;
+}
+
+/* token filtrado: se desvanece pero no se mueve de su lugar */
+.token.is-filtered-out{
+  opacity:.12;
+  filter:grayscale(1);
+  pointer-events:none;
+  transition:opacity .35s ease, filter .35s ease;
+}
+.token{ transition:opacity .35s ease, filter .35s ease; }
+
+/* ---------------------------------------------------------
+   VISTA DE PROYECTO
+   --------------------------------------------------------- */
+.project{
+  position:fixed;
+  inset:0;
+  z-index:200;
+  color:var(--paper);
+  visibility:hidden;
+  opacity:0;
+}
+.project.is-open{
+  visibility:visible;
+  opacity:1;
+}
+.project[data-theme="light"]{ color:var(--ink); }
+
+/* Velo: la superficie sigue estando ahí abajo, desenfocada. */
+.project__veil{
+  position:absolute;
+  inset:0;
+  /* Opaco de verdad, y siempre igual: el fondo del sitio puede ser blanco, y
+     con el velo viejo (38%) el texto blanco quedaba en 2,56:1 sobre blanco,
+     ilegible. Con 80% da 11:1 sobre blanco y no cambia nada sobre oscuro. */
+  background:rgba(8,11,12,.80);
+  /* Sin backdrop-filter: obligaba a Chrome a releer y desenfocar lo de atrás
+     cada vez que cambiaba algo encima (un iframe de Vimeo que se arma al pasar
+     de proyecto), y a veces le salía un rectángulo oscuro mal calculado. El
+     desenfoque ahora va sobre la propia superficie: ver .stage más abajo. */
+}
+
+/* La superficie se desenfoca mientras hay una publicación abierta. project.js
+   pone la clase al abrir y la saca al EMPEZAR a cerrar, así el desenfoque se
+   va al mismo tiempo que el velo, como antes. */
+.stage{ transition:filter .34s ease; }
+body.is-desenfocado .stage{ filter:blur(16px) saturate(.9); transition-duration:.48s; }
+/* Mismo criterio para el velo claro de un proyecto: tiene que tapar un fondo
+   oscuro con la misma solvencia. */
+.project[data-theme="light"] .project__veil{
+  background:rgba(240,238,233,.88);
+}
+
+.project__scroll{
+  position:absolute;
+  inset:0;
+  overflow-y:auto;
+  overflow-x:hidden;
+  -webkit-overflow-scrolling:touch;
+  overscroll-behavior:contain;
+  transform-origin:50% 50%;   /* la ventana se maximiza desde el token */
+}
+
+/* Con la publicación abierta y quieta, su contenido TIENE que verse. En la
+   cascada, un !important del autor le gana a las animaciones, así que un
+   fotograma congelado que haya sobrevivido no puede dejar nada tapado. La
+   regla se levanta sólo mientras corre una animación (.is-anim), que es el
+   único momento en que el contenido debe poder estar a medio camino. */
+.project.is-open:not(.is-anim) .project__scroll{
+  opacity:1 !important;
+  transform:none !important;
+}
+.project.is-open:not(.is-anim) .project__veil,
+.project.is-open:not(.is-anim) .project__close,
+.project.is-open:not(.is-anim) .project__nav{
+  opacity:1 !important;
+}
+
+.project__body{
+  max-width:1140px;
+  margin:0 auto;
+  padding:clamp(76px, 9vw, 120px) clamp(16px, 4vw, 40px) 40px;
+  display:flex;
+  flex-direction:column;
+  --separacion:clamp(22px, 3vw, 40px);   /* entre bloque y bloque */
+  gap:var(--separacion);
+}
+
+/* Ventana apilada (una página abierta desde otra): su velo tapa casi del todo
+   la de abajo, que se adivina pero no se lee a través. */
+.project--capa .project__veil{ background:rgba(8,11,12,.95); }
+.project--capa[data-theme="light"] .project__veil{ background:rgba(240,238,233,.96); }
+
+/* Página HTML de la carpeta de un proyecto: ocupa la ventana entera y se
+   desplaza por dentro; la cruz queda encima. */
+.project.es-html .project__scroll{ overflow:hidden; }
+.project.es-html .project__body{ max-width:none; height:100%; padding:0; }
+.project__html{ display:block; width:100%; height:100%; border:0; }
+
+/* botón de cierre: cruz grande, fondo blanco, trazo #273338 */
+.project__close,
+.project__nav{
+  position:fixed;
+  z-index:220;
+  width:var(--close-size);
+  height:var(--close-size);
+  padding:0;
+  border:0;
+  border-radius:0;
+  background:var(--paper);
+  color:var(--ink);
+  cursor:pointer;
+  display:grid;
+  place-items:center;
+  box-shadow:0 6px 20px rgba(0,0,0,.28);
+  transition:transform .18s ease, box-shadow .18s ease;
+}
+.project__close:hover,
+.project__nav:hover{ box-shadow:0 10px 26px rgba(0,0,0,.34); }
+.project__close:hover{ transform:scale(1.05); }
+.project__close:active{ transform:scale(.97); }
+
+/* Cerrar arriba a la derecha; pasar de proyecto, a los costados y a media
+   altura. Los laterales llevan el centrado dentro del propio transform, así
+   que su hover lo repite para no perderlo. */
+.project__close{ top:calc(15px + var(--safe)); right:15px; }
+
+.project__nav{ top:50%; transform:translateY(-50%); }
+.project__nav--prev{ left:15px; }
+.project__nav--next{ right:15px; }
+.project__nav:hover{ transform:translateY(-50%) scale(1.05); }
+.project__nav:active{ transform:translateY(-50%) scale(.97); }
+/* Ningun anillo de foco del navegador: Chromium dibuja un borde negro interno
+   redondeado al hacer clic o tabular, y la cruz debe quedar siempre limpia. */
+.project__close:focus,
+.project__close:focus-visible,
+.project__nav:focus,
+.project__nav:focus-visible{ outline:none; }
+.project__close svg,
+.project__nav svg{ width:70%; height:70%; }
+.project__close path,
+.project__nav path{
+  stroke:#273338;
+  stroke-width:3.2;
+  stroke-linecap:square;
+  stroke-linejoin:miter;
+  fill:none;
+}
+
+/* ---------- bloques ---------- */
+.block{ margin:0; }
+
+/* Un solo ancho para todo el post: el de la columna (.project__body, 1060 px
+   útiles en escritorio). Título, subtítulo, año/cliente, texto, botones,
+   imágenes, embeds y filas comparten el mismo borde izquierdo y el mismo
+   derecho. Antes el texto iba en una columna de 860 centrada y las imágenes
+   en 1060: el texto arrancaba 100 px más adentro que las imágenes.
+   Una imagen con menos píxeles que ese ancho no se estira: queda a su tamaño,
+   centrada. */
+.block--text,
+.block--media,
+.block--lottie,
+.block--embed,
+.block--button,
+.block--row{
+  width:100%;
+}
+
+/* ---------- cortina de aparición ----------
+   La imagen está quieta y se descubre desde el lado elegido, como si se
+   corriera una cortina. Cada imagen elige su lado en el panel, así que tres
+   en fila pueden abrirse cada una desde donde quiera. */
+/* El recorte va sobre la imagen, pero la marca vive en la figura: un elemento
+   totalmente recortado tiene área cero y el observador nunca lo ve entrar en
+   pantalla, así que se quedaría tapado para siempre. La figura no se recorta,
+   por eso es la que se vigila. */
+.block--image[data-reveal] img{
+  clip-path:inset(0 100% 0 0);            /* por defecto entra desde la izquierda */
+  transition:clip-path .85s cubic-bezier(.22,.9,.28,1);
+  will-change:clip-path;
+}
+.block--image[data-reveal="right"] img { clip-path:inset(0 0 0 100%); }
+.block--image[data-reveal="top"] img   { clip-path:inset(0 0 100% 0); }
+.block--image[data-reveal="bottom"] img{ clip-path:inset(100% 0 0 0); }
+
+.block--image[data-reveal].is-shown img{ clip-path:inset(0 0 0 0); }
+
+/* Con movimiento reducido no hay cortina: la imagen ya está. */
+@media (prefers-reduced-motion: reduce){
+  .block--image[data-reveal] img{
+    clip-path:none;
+    transition:none;
+    will-change:auto;
+  }
+}
+
+.block--text p{ margin:0 0 1em; }
+.block--text p:last-child{ margin-bottom:0; }
+
+.block-title{
+  font-size:clamp(30px, 5.2vw, 62px);
+  line-height:1.03;
+  letter-spacing:-.02em;
+  font-weight:600;
+  margin-block:0;      /* margin:0 anulaba el centrado de la columna */
+}
+.block-subtitle{
+  font-size:clamp(17px, 2.2vw, 24px);
+  line-height:1.3;
+  font-weight:400;
+  opacity:.8;
+  margin-block:0;
+}
+.block-body{
+  font-size:clamp(15px, 1.25vw, 18px);
+  line-height:1.62;
+}
+.block-quote{
+  font-size:clamp(19px, 2.4vw, 28px);
+  line-height:1.4;
+  font-style:italic;
+  border-left:2px solid currentColor;
+  padding-left:clamp(16px, 1.6vw, 22px);   /* la cita sí va indentada, por su barra */
+}
+
+/* Todo el texto flota directo sobre la superficie desenfocada, sin panel.
+   La separación la da una sombra en tres capas: un relieve pegado a la letra,
+   una sombra media y un halo ancho. Así nunca se confunde con lo de abajo,
+   por más claro o movido que sea el token que quedó atrás. */
+.block-title,
+.block-subtitle,
+.block-body,
+.block-quote,
+.project__meta,
+.block-caption{
+  /* Apenas un apoyo: 1px de distancia, 2px de difuminado, 35% de opacidad. */
+  text-shadow:0 1px 2px rgba(0,0,0,.35);
+}
+
+/* con velo claro el texto es oscuro: el halo tiene que ser claro */
+.project[data-theme="light"] .block-title,
+.project[data-theme="light"] .block-subtitle,
+.project[data-theme="light"] .block-body,
+.project[data-theme="light"] .block-quote,
+.project[data-theme="light"] .project__meta,
+.project[data-theme="light"] .block-caption{
+  text-shadow:0 1px 2px rgba(255,255,255,.45);
+}
+.block-caption{
+  font-size:12px;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  opacity:.6;
+  margin-top:10px;
+}
+
+/* Todo lo que no es texto va centrado en la columna; el texto sigue pegado
+   al borde izquierdo, junto con los títulos y los botones. */
+.block--media img,
+.block--media video,
+.block--embed .embed-frame{ margin-inline:auto; }
+
+.block--media img,
+.block--media video{
+  display:block;
+  width:100%;
+  height:auto;              /* proporción original del archivo */
+  border-radius:3px;
+}
+.block--media img{ border-radius:0; }
+.block--media img,
+.block--media video{
+  background:rgba(127,127,127,.12);
+}
+/* El gris es sólo para la espera. Con la imagen cargada se saca: si el
+   archivo tiene transparencia, tiene que verse el fondo del post a través. */
+.block--media img.is-loaded{ background:none; }
+
+
+.block--lottie{ width:100%; }
+.block--lottie .lottie-holder{ width:100%; }
+
+.block--embed iframe{
+  display:block;
+  width:100%;
+  border:0;
+  border-radius:3px;
+  background:rgba(127,127,127,.12);
+}
+
+/* YouTube y Vimeo: contenedor con proporción, el iframe lo llena */
+.block--embed-video .embed-frame{
+  position:relative;
+  width:100%;
+  background:rgba(127,127,127,.12);
+  border-radius:3px;
+  overflow:hidden;
+}
+.block--embed-video .embed-frame iframe{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  border-radius:0;
+}
+
+
+/* Botón: mismo lenguaje que "reordenar" y ENG/ESP de la home, más grande. */
+.block--button{ display:flex; }
+
+.project__btn{
+  display:flex;
+  flex:1;                 /* ocupa todo el ancho del bloque que lo contiene */
+  align-items:center;
+  justify-content:center;
+  gap:11px;
+  font:inherit;
+  font-size:13px;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:inherit;
+  text-decoration:none;
+  background:rgba(255,255,255,.10);
+  border:1px solid rgba(233,230,224,.35);
+  border-radius:2px;
+  padding:15px 24px;
+  cursor:pointer;
+  transition:background .2s ease, border-color .2s ease;
+}
+.project__btn:hover{
+  background:rgba(255,255,255,.22);
+  border-color:var(--surface-fg);
+}
+.project__btn__icon{
+  width:20px;
+  height:20px;
+  object-fit:contain;
+  display:block;
+  flex:none;
+}
+
+/* Íconos de la biblioteca (img/button-icons): son negros. En un post oscuro
+   se invierten a blanco; en uno claro quedan como están. */
+.project:not([data-theme="light"]) .project__btn__icon--biblioteca{ filter:invert(1); }
+
+.project[data-theme="light"] .project__btn{
+  background:rgba(39,51,56,.06);
+  border-color:rgba(39,51,56,.3);
+}
+.project[data-theme="light"] .project__btn:hover{
+  background:rgba(39,51,56,.12);
+  border-color:var(--ink);
+}
+
+/* Fila de columnas: de 1 a 6, y en celular siempre una debajo de la otra.
+   La misma separación para toda fila, tenga texto o sólo imágenes. */
+.block--row{
+  display:grid;
+  grid-template-columns:repeat(var(--cols, 1), minmax(0, 1fr));
+  gap:18px;
+  align-items:start;
+}
+.row__cell{ min-width:0; }
+
+@media (max-width: 720px){
+  .block--row{ grid-template-columns:1fr; }
+}
+
+.block--divider{
+  height:1px;
+  background:currentColor;
+  opacity:.25;
+  width:100%;
+}
+
+/* Año y cliente: un dato de apoyo del título, no un bloque más. Va pegado al
+   título y con poco aire hasta el texto; sin esto recibía la misma
+   separación que cualquier bloque (hasta 40 px arriba y abajo). */
+.project__meta{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px 18px;
+  font-size:12px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  opacity:.65;
+  margin-top:calc(10px - var(--separacion));
+  margin-bottom:calc(20px - var(--separacion));
+}
+
+.project__foot{
+  padding:40px 24px 90px;
+  display:grid;
+  place-items:center;
+}
+.project__back{
+  font:inherit;
+  font-size:12px;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:inherit;
+  background:rgba(12,16,18,.5);
+  -webkit-backdrop-filter:blur(8px);
+  backdrop-filter:blur(8px);
+  border:1px solid currentColor;
+  border-radius:2px;
+  padding:12px 22px;
+  cursor:pointer;
+  opacity:.7;
+  transition:opacity .2s ease;
+}
+.project__back:hover{ opacity:1; }
+
+/* ---------------------------------------------------------
+   RESPONSIVE
+   --------------------------------------------------------- */
+@media (max-width: 720px){
+  :root{ --close-size:67px; }
+  .stage-ui{ left:14px; bottom:14px; gap:10px; font-size:11px; }
+  .filters{
+    right:14px;
+    bottom:56px;
+    max-width:calc(100vw - 28px);
+  }
+  /* Grilla más alta que la pantalla: firma y hashtags al final de la página
+     (app.js pone la clase). El body es la referencia: mide lo que la superficie. */
+  body.pagina-larga{ position:relative; height:auto; min-height:100%; }
+  body.pagina-larga .stage-ui,
+  body.pagina-larga .filters{ position:absolute; }
+  .project__body{ --separacion:24px; }
+
+  /* Pasar de proyecto: en vez de a media altura (tapaban la publicación), en
+     una franja fija al pie, a mano del pulgar. La publicación termina justo
+     arriba de la franja, así nada queda debajo de las flechas. Sin flechas
+     (boletín, o un solo proyecto a la vista) la franja no ocupa lugar. */
+  :root{ --barra-nav:calc(64px + env(safe-area-inset-bottom, 0px)); }
+  .project.tiene-nav .project__scroll{ bottom:var(--barra-nav); }
+  .project__nav{
+    top:auto;
+    bottom:calc(8px + env(safe-area-inset-bottom, 0px));
+    width:48px;
+    height:48px;
+    transform:none;
+  }
+  .project__nav:hover{ transform:scale(1.05); }
+  .project__nav:active{ transform:scale(.97); }
+  /* la firma, los idiomas y los hashtags asomaban dentro de esa franja, a
+     través del velo: con un post abierto no se usan, se ocultan */
+  body.is-project-open .stage-ui,
+  body.is-project-open .filters{ visibility:hidden; }
+}
+
+@media (prefers-reduced-motion: reduce){
+  *{ animation-duration:.01ms !important; transition-duration:.01ms !important; }
+  .project__scroll{ scroll-behavior:auto; }
+}

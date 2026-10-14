@@ -1,0 +1,15 @@
+# Reglas de Netlify (van en la raíz de lo publicado). Ver DEPLOY.md.
+#
+# Idioma por país. El navegador no sabe en qué país está el visitante; Netlify
+# sí (por la IP). geo/pais.json no existe como archivo: se reescribe a
+# geo/es.json en los 21 países hispanohablantes y a geo/en.json en todos los
+# demás (angloparlantes y país desconocido). app.js lo consulta sólo si el
+# visitante no eligió idioma antes ni el link trae ?lang=.
+#
+# Hispanohablantes (ISO 3166-1): Argentina, Bolivia, Chile, Colombia, Costa
+# Rica, Cuba, República Dominicana, Ecuador, España, Guinea Ecuatorial,
+# Guatemala, Honduras, México, Nicaragua, Panamá, Perú, Puerto Rico, Paraguay,
+# El Salvador, Uruguay, Venezuela.
+
+/geo/pais.json  /geo/es.json  200!  Country=ar,bo,cl,co,cr,cu,do,ec,es,gq,gt,hn,mx,ni,pa,pe,pr,py,sv,uy,ve
+/geo/pais.json  /geo/en.json  200!

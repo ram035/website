@@ -1,0 +1,1479 @@
+{
+  "site": {
+    "title": "Ramiro Piedrabuena",
+    "url": "https://ramiropiedrabuena.website",
+    "tagline": "Portfolio",
+    "showLabel": true,
+    "defaultLang": "es",
+    "languages": [
+      "es",
+      "en"
+    ],
+    "tags": {
+      "category": [
+        {
+          "id": "illustration",
+          "es": "Ilustración",
+          "en": "Illustration",
+          "esAuto": false
+        },
+        {
+          "id": "graphic-design",
+          "es": "diseño gráfico",
+          "en": "graphic design",
+          "esAuto": false
+        },
+        {
+          "id": "music-production",
+          "es": "producción musical",
+          "en": "music production",
+          "esAuto": false
+        },
+        {
+          "id": "sound-design",
+          "es": "diseño de sonido",
+          "en": "sound design",
+          "esAuto": false
+        },
+        {
+          "id": "logo-design",
+          "es": "logotipo",
+          "en": "logotype",
+          "esAuto": false
+        },
+        {
+          "id": "icon-design",
+          "es": "ícono",
+          "en": "icon",
+          "esAuto": false
+        }
+      ],
+      "industry": [
+        {
+          "id": "clothing-apparel",
+          "es": "Indumentaria y Vestimenta",
+          "en": "clothing & apparel",
+          "esAuto": false
+        },
+        {
+          "id": "client-work",
+          "es": "proyectos de clientes",
+          "en": "client work",
+          "esAuto": false
+        }
+      ]
+    },
+    "background": {
+      "image": "",
+      "repeat": "repeat",
+      "size": "auto",
+      "sizeCustom": "",
+      "position": "left top",
+      "positionCustom": "",
+      "attachment": "scroll",
+      "color": "#ffffff"
+    },
+    "ui": "clear",
+    "pantalla": {
+      "w": 1920,
+      "h": 914
+    },
+    "atajos": [
+      {
+        "desde": "/keysense/privacy",
+        "hacia": "projects/gavna/privacy-policy.en.html"
+      },
+      {
+        "desde": "/keysense/privacidad",
+        "hacia": "projects/gavna/privacy-policy.es.html"
+      },
+      {
+        "desde": "/keysense/terms",
+        "hacia": "projects/gavna/terms.en.html"
+      },
+      {
+        "desde": "/keysense/terminos",
+        "hacia": "projects/gavna/terms.es.html"
+      }
+    ],
+    "maintenance": {
+      "on": false,
+      "message": {
+        "en": "Website under maintenance, check back soon! Sorry for the inconvenience.",
+        "es": "Sitio en mantenimiento, ¡volvé pronto! Disculpá las molestias."
+      }
+    }
+  },
+  "projects": [
+    {
+      "id": "info",
+      "title": {
+        "es": "INFO",
+        "en": "INFO",
+        "esAuto": false
+      },
+      "subtitle": {
+        "es": "",
+        "en": "",
+        "esAuto": true
+      },
+      "role": {
+        "es": "",
+        "en": "",
+        "esAuto": true
+      },
+      "year": "",
+      "theme": "dark",
+      "tags": {
+        "category": [],
+        "industry": []
+      },
+      "token": {
+        "image": "projects/info/icons_1-1.svg",
+        "width": 70,
+        "x": 0.065,
+        "y": 0.108,
+        "rotation": 7,
+        "watercolor": {
+          "on": true,
+          "colors": [
+            "#ff5221",
+            "#ff5221",
+            "#ff5221"
+          ],
+          "blend": "normal",
+          "layer": "under"
+        },
+        "hoverFx": "none",
+        "inkColor": "#000000",
+        "float": true
+      },
+      "blocks": [
+        {
+          "type": "text",
+          "variant": "title",
+          "content": {
+            "es": "Creando experiencias gráficas y audiovisuales",
+            "en": "Crafting graphic & audiovisual experiences",
+            "esAuto": false
+          }
+        },
+        {
+          "type": "text",
+          "variant": "body",
+          "content": {
+            "es": "En pocas palabras, a eso me dedico. Llámese diseño gráfico y web, ilustración, animación, edición de video o producción musical; crear cosas ha sido mi pasión durante más de 25 años, trabajando con clientes de todo tipo de industrias alrededor del mundo.\n\nEn este sitio muestro parte de mi trabajo personal y profesional. Si tienes alguna duda o necesitas ayuda con tu proyecto, ¡no dudes en escribirme!",
+            "en": "That’s essentially what I do. Call it graphic and web design, illustration, animation, video editing or music production, but creating things has been my passion for over 25 years, working with clients across various industries around the globe.\n\nThis website showcases some of my personal and professional work. If you have any inquires or need help with your project, feel free to reach out!",
+            "esAuto": false
+          }
+        },
+        {
+          "type": "row",
+          "columns": 2,
+          "cells": [
+            {
+              "type": "button",
+              "label": {
+                "es": "WHATSAPP",
+                "en": "WHATSAPP",
+                "esAuto": false
+              },
+              "url": {
+                "es": "https://wa.me/59892547075",
+                "en": "https://wa.me/59892547075",
+                "esAuto": true
+              },
+              "newTab": true,
+              "icon": "img/button-icons/whatsapp.webp"
+            },
+            {
+              "type": "button",
+              "label": {
+                "es": "EMAIL",
+                "en": "EMAIL",
+                "esAuto": false
+              },
+              "url": {
+                "es": "mailto:ramiro.piedrabuena@gmail.com",
+                "en": "mailto:ramiro.piedrabuena@gmail.com",
+                "esAuto": true
+              },
+              "newTab": true,
+              "icon": "img/button-icons/email.webp"
+            }
+          ]
+        }
+      ],
+      "kind": "page",
+      "aliases": [
+        "proj0001"
+      ]
+    },
+    {
+      "id": "time-harvest",
+      "title": {
+        "es": "Time Harvest",
+        "en": "",
+        "esAuto": false
+      },
+      "subtitle": {
+        "es": "",
+        "en": "",
+        "esAuto": true
+      },
+      "role": {
+        "es": "",
+        "en": "",
+        "esAuto": true
+      },
+      "year": "",
+      "theme": "dark",
+      "tags": {
+        "category": [
+          "illustration",
+          "graphic-design",
+          "sound-design"
+        ],
+        "industry": []
+      },
+      "token": {
+        "image": "projects/time-harvest/icons_10-1.svg",
+        "width": 41,
+        "x": 0.53,
+        "y": 0.407,
+        "rotation": -19,
+        "hoverFx": "none",
+        "inkColor": "#000000",
+        "float": true,
+        "watercolor": {
+          "on": true,
+          "colors": [
+            "#ff5221",
+            "#ff5221",
+            "#ff5221"
+          ],
+          "blend": "normal",
+          "layer": "under"
+        }
+      },
+      "blocks": [
+        {
+          "type": "embed",
+          "provider": "vimeo",
+          "url": "",
+          "code": "<iframe src=\"https://player.vimeo.com/video/1214927813?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479\" width=\"1080\" height=\"1350\" frameborder=\"0\" allow=\"autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" title=\"Time Harvest\"></iframe>",
+          "full": false,
+          "width": 1080,
+          "height": 1350
+        },
+        {
+          "type": "image",
+          "src": "projects/time-harvest/feat-00.png",
+          "caption": {
+            "es": "",
+            "en": "",
+            "esAuto": true
+          },
+          "reveal": "right"
+        },
+        {
+          "type": "image",
+          "src": "projects/time-harvest/feat-01.png",
+          "caption": {
+            "es": "",
+            "en": "",
+            "esAuto": true
+          }
+        },
+        {
+          "type": "row",
+          "columns": 3,
+          "cells": [
+            {
+              "type": "image",
+              "src": "projects/time-harvest/feat-02.png",
+              "caption": {
+                "es": "",
+                "en": "",
+                "esAuto": true
+              },
+              "reveal": "bottom"
+            },
+            {
+              "type": "image",
+              "src": "projects/time-harvest/feat-03.png",
+              "caption": {
+                "es": "",
+                "en": "",
+                "esAuto": true
+              },
+              "reveal": "top"
+            },
+            {
+              "type": "image",
+              "src": "projects/time-harvest/feat-04.png",
+              "caption": {
+                "es": "",
+                "en": "",
+                "esAuto": true
+              },
+              "reveal": "bottom"
+            }
+          ]
+        }
+      ],
+      "kind": "project",
+      "aliases": [
+        "proj0002"
+      ]
+    },
+    {
+      "id": "neosurrealism-study-001",
+      "title": {
+        "es": "Neosurrealism Study 001",
+        "en": "",
+        "esAuto": false
+      },
+      "subtitle": {
+        "es": "",
+        "en": "",
+        "esAuto": true
+      },
+      "role": {
+        "es": "",
+        "en": "",
+        "esAuto": true
+      },
+      "year": "",
+      "theme": "dark",
+      "tags": {
+        "category": [
+          "illustration",
+          "graphic-design",
+          "music-production",
+          "sound-design"
+        ],
+        "industry": []
+      },
+      "token": {
+        "image": "projects/neosurrealism-study-001/Asset-44.svg",
+        "width": 40,
+        "x": 0.475,
+        "y": 0.325,
+        "rotation": -15,
+        "hoverFx": "none",
+        "inkColor": "#000000",
+        "watercolor": {
+          "on": true,
+          "colors": [
+            "#ff5221",
+            "#aa3a1a",
+            "#ff5221"
+          ],
+          "blend": "normal",
+          "layer": "under",
+          "opacity": 1
+        },
+        "float": true
+      },
+      "blocks": [
+        {
+          "type": "embed",
+          "provider": "raw",
+          "url": "",
+          "code": "<iframe src=\"https://player.vimeo.com/video/1229690078?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479\" width=\"1080\" height=\"1350\" frameborder=\"0\" allow=\"autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" title=\"Neosurrealism Study 001\"></iframe>",
+          "width": 1080,
+          "height": 1350
+        },
+        {
+          "type": "row",
+          "columns": 2,
+          "cells": [
+            {
+              "type": "image",
+              "src": "projects/neosurrealism-study-001/post-01.webp",
+              "caption": {
+                "es": "",
+                "en": ""
+              },
+              "reveal": "right"
+            },
+            {
+              "type": "image",
+              "src": "projects/neosurrealism-study-001/post-02.webp",
+              "caption": {
+                "es": "",
+                "en": ""
+              },
+              "reveal": "right"
+            }
+          ]
+        },
+        {
+          "type": "row",
+          "columns": 2,
+          "cells": [
+            {
+              "type": "image",
+              "src": "projects/neosurrealism-study-001/post-03.webp",
+              "caption": {
+                "es": "",
+                "en": ""
+              }
+            },
+            {
+              "type": "image",
+              "src": "projects/neosurrealism-study-001/post-04.webp",
+              "caption": {
+                "es": "",
+                "en": ""
+              }
+            }
+          ]
+        },
+        {
+          "type": "row",
+          "columns": 2,
+          "cells": [
+            {
+              "type": "image",
+              "src": "projects/neosurrealism-study-001/post-05.webp",
+              "caption": {
+                "es": "",
+                "en": ""
+              },
+              "reveal": "bottom"
+            },
+            {
+              "type": "image",
+              "src": "projects/neosurrealism-study-001/post-06.webp",
+              "caption": {
+                "es": "",
+                "en": ""
+              },
+              "reveal": "bottom"
+            }
+          ]
+        }
+      ],
+      "kind": "project",
+      "aliases": [
+        "proj0003"
+      ]
+    },
+    {
+      "id": "surreal-sports-001",
+      "title": {
+        "es": "Surreal Sports 001",
+        "en": "",
+        "esAuto": false
+      },
+      "subtitle": {
+        "es": "",
+        "en": "",
+        "esAuto": true
+      },
+      "role": {
+        "es": "",
+        "en": "",
+        "esAuto": true
+      },
+      "year": "",
+      "theme": "dark",
+      "tags": {
+        "category": [
+          "illustration",
+          "graphic-design"
+        ],
+        "industry": []
+      },
+      "token": {
+        "image": "projects/surreal-sports-001/icons_3.svg",
+        "width": 61,
+        "x": 0.456,
+        "y": 0.529,
+        "rotation": 0,
+        "hoverFx": "none",
+        "inkColor": "#000000",
+        "float": true,
+        "watercolor": {
+          "on": true,
+          "colors": [
+            "#ff5221",
+            "#ff5221",
+            "#ff5221"
+          ],
+          "blend": "normal",
+          "layer": "under"
+        }
+      },
+      "blocks": [
+        {
+          "type": "image",
+          "src": "projects/surreal-sports-001/surreal-sports.webp",
+          "caption": {
+            "es": "",
+            "en": "",
+            "esAuto": true
+          }
+        },
+        {
+          "type": "image",
+          "src": "projects/surreal-sports-001/surreal-sports-detail.webp",
+          "caption": {
+            "es": "",
+            "en": "",
+            "esAuto": true
+          },
+          "reveal": "right"
+        }
+      ],
+      "kind": "project",
+      "aliases": [
+        "proj0004"
+      ]
+    },
+    {
+      "id": "neosurrealism-study-002",
+      "title": {
+        "es": "Neosurrealism Study 002",
+        "en": "Neosurrealism Study 002",
+        "esAuto": false
+      },
+      "subtitle": {
+        "es": "",
+        "en": "",
+        "esAuto": true
+      },
+      "role": {
+        "es": "",
+        "en": "",
+        "esAuto": true
+      },
+      "year": "",
+      "theme": "dark",
+      "tags": {
+        "category": [
+          "illustration",
+          "graphic-design"
+        ],
+        "industry": []
+      },
+      "token": {
+        "image": "projects/neosurrealism-study-002/icons_9.svg",
+        "width": 54,
+        "x": 0.407,
+        "y": 0.392,
+        "rotation": -22,
+        "hoverFx": "none",
+        "inkColor": "#000000",
+        "float": true,
+        "watercolor": {
+          "on": true,
+          "colors": [
+            "#ff5221",
+            "#ff5221",
+            "#ff5221"
+          ],
+          "blend": "normal",
+          "layer": "under"
+        }
+      },
+      "blocks": [
+        {
+          "type": "image",
+          "src": "projects/neosurrealism-study-002/neosurrealism-study-002.webp",
+          "caption": {
+            "es": "",
+            "en": "",
+            "esAuto": true
+          }
+        },
+        {
+          "type": "image",
+          "src": "projects/neosurrealism-study-002/neosurrealism-study-002-detail-001.webp",
+          "caption": {
+            "es": "",
+            "en": "",
+            "esAuto": true
+          },
+          "reveal": "right"
+        },
+        {
+          "type": "image",
+          "src": "projects/neosurrealism-study-002/neosurrealism-study-002-detail-002.webp",
+          "caption": {
+            "es": "",
+            "en": "",
+            "esAuto": true
+          }
+        },
+        {
+          "type": "image",
+          "src": "projects/neosurrealism-study-002/neosurrealism-study-002-detail-003.webp",
+          "caption": {
+            "es": "",
+            "en": "",
+            "esAuto": true
+          },
+          "reveal": "right"
+        }
+      ],
+      "kind": "project",
+      "aliases": [
+        "proj0005"
+      ]
+    },
+    {
+      "id": "self-spreading-virus",
+      "title": {
+        "es": "Self Spreading Virus",
+        "en": "Self Spreading Virus",
+        "esAuto": false
+      },
+      "subtitle": {
+        "es": "",
+        "en": "",
+        "esAuto": true
+      },
+      "role": {
+        "es": "",
+        "en": "",
+        "esAuto": true
+      },
+      "year": "",
+      "theme": "dark",
+      "tags": {
+        "category": [
+          "illustration",
+          "graphic-design"
+        ],
+        "industry": [
+          "clothing-apparel"
+        ]
+      },
+      "token": {
+        "image": "projects/self-spreading-virus/Asset-34.svg",
+        "width": 69,
+        "x": 0.582,
+        "y": 0.341,
+        "rotation": 9,
+        "watercolor": {
+          "on": true,
+          "colors": [
+            "#ff5221",
+            "#aa3a1a",
+            "#ff5221"
+          ],
+          "blend": "normal",
+          "layer": "under",
+          "opacity": 0.8
+        },
+        "hoverFx": "none",
+        "inkColor": "#000000",
+        "float": true,
+        "strokeLoop": false
+      },
+      "blocks": [
+        {
+          "type": "image",
+          "src": "projects/self-spreading-virus/self-spreading-virus-001.webp",
+          "caption": {
+            "es": "",
+            "en": "",
+            "esAuto": true
+          }
+        },
+        {
+          "type": "image",
+          "src": "projects/self-spreading-virus/self-spreading-virus-002.webp",
+          "caption": {
+            "es": "",
+            "en": "",
+            "esAuto": true
+          },
+          "reveal": "bottom"
+        }
+      ],
+      "kind": "project",
+      "aliases": [
+        "proj0006"
+      ]
+    },
+    {
+      "id": "human-genealogy-reconstruction",
+      "title": {
+        "es": "Human Genealogy Reconstruction",
+        "en": "Human Genealogy Reconstruction",
+        "esAuto": false
+      },
+      "subtitle": {
+        "es": "",
+        "en": "",
+        "esAuto": true
+      },
+      "role": {
+        "es": "",
+        "en": "",
+        "esAuto": true
+      },
+      "year": "",
+      "theme": "dark",
+      "tags": {
+        "category": [
+          "graphic-design",
+          "illustration"
+        ],
+        "industry": [
+          "clothing-apparel"
+        ]
+      },
+      "token": {
+        "image": "projects/human-genealogy-reconstruction/Asset-38.svg",
+        "width": 69,
+        "x": 0.504,
+        "y": 0.499,
+        "rotation": 19,
+        "watercolor": {
+          "on": true,
+          "colors": [
+            "#ff5221",
+            "#aa3a1a",
+            "#ff5221"
+          ],
+          "blend": "normal",
+          "layer": "under",
+          "opacity": 0.8
+        },
+        "hoverFx": "none",
+        "inkColor": "#000000",
+        "float": true,
+        "strokeLoop": false
+      },
+      "blocks": [
+        {
+          "type": "image",
+          "src": "projects/human-genealogy-reconstruction/human-genealogy-reconstruction-001.webp",
+          "caption": {
+            "es": "",
+            "en": "",
+            "esAuto": true
+          }
+        },
+        {
+          "type": "image",
+          "src": "projects/human-genealogy-reconstruction/human-genealogy-reconstruction-002.webp",
+          "caption": {
+            "es": "",
+            "en": "",
+            "esAuto": true
+          },
+          "reveal": "bottom"
+        }
+      ],
+      "kind": "project",
+      "aliases": [
+        "proj0007"
+      ]
+    },
+    {
+      "id": "proj0001",
+      "title": {
+        "es": "Heimwerker",
+        "en": "Heimwerker-shop24",
+        "esAuto": false
+      },
+      "subtitle": {
+        "es": "",
+        "en": "",
+        "esAuto": true
+      },
+      "role": {
+        "es": "Heimwerker-shop24",
+        "en": "Heimwerker-shop24",
+        "esAuto": true
+      },
+      "year": "2017",
+      "theme": "dark",
+      "tags": {
+        "category": [
+          "logo-design",
+          "icon-design",
+          "graphic-design"
+        ],
+        "industry": [
+          "client-work"
+        ]
+      },
+      "token": {
+        "image": "projects/proj0001/icons_5-1.svg",
+        "width": 23,
+        "x": 0.582,
+        "y": 0.456,
+        "rotation": 110,
+        "watercolor": {
+          "on": true,
+          "colors": [
+            "#ff5221",
+            "#ff5221",
+            "#ff5221"
+          ],
+          "blend": "normal",
+          "layer": "under"
+        },
+        "hoverFx": "none",
+        "inkColor": "#000000",
+        "float": true
+      },
+      "blocks": [
+        {
+          "type": "text",
+          "variant": "body",
+          "content": {
+            "es": "Logo design and custom iconography for heimwerker-SHOP24, an e-commerce store dedicated to DIY tools, home improvement, and garden supplies in Nord Westfalia (Germany). The scope of work included crafting the primary logo and designing a custom icon set for their online platform.",
+            "en": "Logo design and custom iconography for heimwerker-SHOP24, an e-commerce store dedicated to DIY tools, home improvement, and garden supplies in Nord Westfalia (Germany). The scope of work included crafting the primary logo and designing a custom icon set for their online platform.",
+            "esAuto": true
+          }
+        },
+        {
+          "type": "row",
+          "columns": 2,
+          "cells": [
+            {
+              "type": "image",
+              "src": "projects/proj0001/Heimwerker-01.webp",
+              "caption": {
+                "es": "",
+                "en": "",
+                "esAuto": true
+              },
+              "reveal": "right"
+            },
+            {
+              "type": "image",
+              "src": "projects/proj0001/Heimwerker-02.webp",
+              "caption": {
+                "es": "",
+                "en": "",
+                "esAuto": true
+              }
+            }
+          ]
+        },
+        {
+          "type": "row",
+          "columns": 2,
+          "cells": [
+            {
+              "type": "image",
+              "src": "projects/proj0001/Heimwerker-03.webp",
+              "caption": {
+                "es": "",
+                "en": "",
+                "esAuto": true
+              },
+              "reveal": "right"
+            },
+            {
+              "type": "image",
+              "src": "projects/proj0001/Heimwerker-04.webp",
+              "caption": {
+                "es": "",
+                "en": "",
+                "esAuto": true
+              }
+            }
+          ]
+        },
+        {
+          "type": "row",
+          "columns": 2,
+          "cells": [
+            {
+              "type": "image",
+              "src": "projects/proj0001/Heimwerker-05.webp",
+              "caption": {
+                "es": "",
+                "en": "",
+                "esAuto": true
+              },
+              "reveal": "right"
+            },
+            {
+              "type": "image",
+              "src": "projects/proj0001/Heimwerker-06.webp",
+              "caption": {
+                "es": "",
+                "en": "",
+                "esAuto": true
+              }
+            }
+          ]
+        },
+        {
+          "type": "row",
+          "columns": 2,
+          "cells": [
+            {
+              "type": "image",
+              "src": "projects/proj0001/Heimwerker-07.webp",
+              "caption": {
+                "es": "",
+                "en": "",
+                "esAuto": true
+              }
+            },
+            {
+              "type": "image",
+              "src": "projects/proj0001/Heimwerker-08-1.webp",
+              "caption": {
+                "es": "",
+                "en": "",
+                "esAuto": true
+              }
+            }
+          ]
+        }
+      ],
+      "kind": "project"
+    },
+    {
+      "id": "proj0002",
+      "title": {
+        "es": "Crypto.fashion",
+        "en": "Cryptofashion",
+        "esAuto": false
+      },
+      "subtitle": {
+        "es": "",
+        "en": "",
+        "esAuto": true
+      },
+      "role": {
+        "es": "Crypto Fashion",
+        "en": "Crypto Fashion",
+        "esAuto": true
+      },
+      "year": "2021",
+      "theme": "dark",
+      "tags": {
+        "category": [
+          "logo-design",
+          "graphic-design"
+        ],
+        "industry": [
+          "client-work"
+        ]
+      },
+      "token": {
+        "image": "projects/proj0002/icons_8-1.svg",
+        "width": 70,
+        "x": 0.522,
+        "y": 0.291,
+        "rotation": -20,
+        "hoverFx": "none",
+        "inkColor": "#000000",
+        "float": true,
+        "watercolor": {
+          "on": true,
+          "colors": [
+            "#ff5221",
+            "#ff5221",
+            "#ff5221"
+          ],
+          "blend": "normal",
+          "layer": "under"
+        }
+      },
+      "blocks": [
+        {
+          "type": "text",
+          "variant": "body",
+          "content": {
+            "es": "Cryptofashion diseñaba y distribuía productos de moda originales que se comerciaban con criptomonedas. Me encargaron el diseño de su logotipo.",
+            "en": "Cryptofashion designed and delivered original fashion products traded in cryptocurrencies. I was commissioned to design their logotype.",
+            "esAuto": false
+          }
+        },
+        {
+          "type": "button",
+          "label": {
+            "es": "Cryptofashion en X",
+            "en": "Cryptofashion on X",
+            "esAuto": false
+          },
+          "url": {
+            "es": "https://x.com/cryptofashion",
+            "en": "https://x.com/cryptofashion",
+            "esAuto": true
+          },
+          "newTab": true,
+          "icon": "img/button-icons/social-01.webp"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "row",
+          "columns": 2,
+          "cells": [
+            {
+              "type": "image",
+              "src": "projects/proj0002/Asset-1.webp",
+              "caption": {
+                "es": "",
+                "en": "",
+                "esAuto": true
+              }
+            },
+            {
+              "type": "image",
+              "src": "projects/proj0002/Asset-2.webp",
+              "caption": {
+                "es": "",
+                "en": "",
+                "esAuto": true
+              }
+            }
+          ]
+        },
+        {
+          "type": "row",
+          "columns": 2,
+          "cells": [
+            {
+              "type": "image",
+              "src": "projects/proj0002/Asset-3.webp",
+              "caption": {
+                "es": "",
+                "en": "",
+                "esAuto": true
+              }
+            },
+            {
+              "type": "image",
+              "src": "projects/proj0002/Asset-4.webp",
+              "caption": {
+                "es": "",
+                "en": "",
+                "esAuto": true
+              }
+            }
+          ]
+        }
+      ],
+      "kind": "project"
+    },
+    {
+      "id": "proj0003",
+      "title": {
+        "es": "Burst",
+        "en": "Burst",
+        "esAuto": false
+      },
+      "subtitle": {
+        "es": "",
+        "en": "",
+        "esAuto": true
+      },
+      "role": {
+        "es": "",
+        "en": "",
+        "esAuto": true
+      },
+      "year": "2026",
+      "theme": "dark",
+      "tags": {
+        "category": [
+          "illustration",
+          "graphic-design"
+        ],
+        "industry": [
+          "clothing-apparel"
+        ]
+      },
+      "token": {
+        "image": "projects/proj0003/Asset-35-1.svg",
+        "width": 69,
+        "x": 0.466,
+        "y": 0.421,
+        "rotation": -24,
+        "hoverFx": "none",
+        "inkColor": "#000000",
+        "float": true,
+        "watercolor": {
+          "on": true,
+          "colors": [
+            "#ff5221",
+            "#aa3a1a",
+            "#ff5221"
+          ],
+          "blend": "normal",
+          "layer": "under",
+          "opacity": 0.8
+        },
+        "strokeLoop": false
+      },
+      "blocks": [
+        {
+          "type": "row",
+          "columns": 2,
+          "cells": [
+            {
+              "type": "image",
+              "src": "projects/proj0003/cars-001.webp",
+              "caption": {
+                "es": "",
+                "en": "",
+                "esAuto": true
+              },
+              "reveal": "right"
+            },
+            {
+              "type": "image",
+              "src": "projects/proj0003/cars-003-2.webp",
+              "caption": {
+                "es": "",
+                "en": "",
+                "esAuto": true
+              },
+              "reveal": "top"
+            }
+          ]
+        },
+        {
+          "type": "row",
+          "columns": 2,
+          "cells": [
+            {
+              "type": "image",
+              "src": "projects/proj0003/cars-002.webp",
+              "caption": {
+                "es": "",
+                "en": "",
+                "esAuto": true
+              },
+              "reveal": "right"
+            },
+            {
+              "type": "image",
+              "src": "projects/proj0003/cars-004-1.webp",
+              "caption": {
+                "es": "",
+                "en": "",
+                "esAuto": true
+              },
+              "reveal": "top"
+            }
+          ]
+        }
+      ],
+      "kind": "project"
+    },
+    {
+      "id": "proj0004",
+      "title": {
+        "es": "Andrés Irasuste Psicología Hoy",
+        "en": "Psicoterapia Hoy",
+        "esAuto": false
+      },
+      "subtitle": {
+        "es": "Andrés Irasuste Psicólogo",
+        "en": "Andrés Irasuste Psicólogo",
+        "esAuto": true
+      },
+      "role": {
+        "es": "",
+        "en": "",
+        "esAuto": true
+      },
+      "year": "2019",
+      "theme": "dark",
+      "tags": {
+        "category": [],
+        "industry": []
+      },
+      "token": {
+        "image": "projects/proj0004/icons_12.svg",
+        "width": 68,
+        "x": 0.425,
+        "y": 0.479,
+        "rotation": 0,
+        "hoverFx": "none",
+        "inkColor": "#000000",
+        "float": true,
+        "watercolor": {
+          "on": true,
+          "colors": [
+            "#ff5221",
+            "#ff5221",
+            "#ff5221"
+          ],
+          "blend": "normal",
+          "layer": "under"
+        }
+      },
+      "blocks": [
+        {
+          "type": "text",
+          "variant": "body",
+          "content": {
+            "es": "Dar el primer paso en salud mental suele estar acompañado de dudas, indecisión y postergación. Con esto en mente, creamos el concepto \"Hoy\" para la marca del psicólogo Andrés Irasuste: un llamado a la acción que busca transformar la duda en decisión.\n\nDiseñamos el logotipo y piezas gráficas para redes sociales enfocados en transmitir cercanía, priorizando el bienestar presente sin dejarlo para después.",
+            "en": "Taking the first step in mental health care is often met with hesitation, self-doubt, and procrastination. With this in mind, we built the brand concept \"Hoy\" (Today) for psychologist Andrés Irasuste—a call to action designed to transform uncertainty into action.\n\nWe crafted the logo and social media design system to feel approachable and reassuring, encouraging people to prioritize their well-being now rather than putting it off.\n",
+            "esAuto": false
+          }
+        },
+        {
+          "type": "row",
+          "columns": 3,
+          "cells": [
+            {
+              "type": "image",
+              "src": "projects/proj0004/Asset-1.webp",
+              "caption": {
+                "es": "",
+                "en": "",
+                "esAuto": true
+              }
+            },
+            {
+              "type": "image",
+              "src": "projects/proj0004/Asset-3.webp",
+              "caption": {
+                "es": "",
+                "en": "",
+                "esAuto": true
+              }
+            },
+            {
+              "type": "image",
+              "src": "projects/proj0004/Asset-4.webp",
+              "caption": {
+                "es": "",
+                "en": "",
+                "esAuto": true
+              }
+            }
+          ]
+        },
+        {
+          "type": "row",
+          "columns": 2,
+          "cells": [
+            {
+              "type": "image",
+              "src": "projects/proj0004/andres-irasuste-post-001-01-1.jpg",
+              "caption": {
+                "es": "",
+                "en": "",
+                "esAuto": true
+              }
+            },
+            {
+              "type": "image",
+              "src": "projects/proj0004/andres-irasuste-post-001-02-1.jpg",
+              "caption": {
+                "es": "",
+                "en": "",
+                "esAuto": true
+              }
+            }
+          ]
+        },
+        {
+          "type": "row",
+          "columns": 2,
+          "cells": [
+            {
+              "type": "image",
+              "src": "projects/proj0004/andres-irasuste-post-001-03-1.jpg",
+              "caption": {
+                "es": "",
+                "en": "",
+                "esAuto": true
+              }
+            },
+            {
+              "type": "image",
+              "src": "projects/proj0004/andres-irasuste-post-002-01.jpg",
+              "caption": {
+                "es": "",
+                "en": "",
+                "esAuto": true
+              }
+            }
+          ]
+        }
+      ],
+      "kind": "project"
+    },
+    {
+      "id": "gavna",
+      "title": {
+        "es": "Keysense",
+        "en": "Gavna",
+        "esAuto": false
+      },
+      "subtitle": {
+        "es": "App de composición musical",
+        "en": "Tools for creative work",
+        "esAuto": false
+      },
+      "role": {
+        "es": "",
+        "en": "",
+        "esAuto": true
+      },
+      "year": "2026",
+      "theme": "dark",
+      "tags": {
+        "category": [],
+        "industry": []
+      },
+      "token": {
+        "image": "projects/gavna/Asset-43.svg",
+        "width": 57,
+        "x": 0.432,
+        "y": 0.284,
+        "rotation": 0,
+        "watercolor": {
+          "on": true,
+          "colors": [
+            "#ff2c4a",
+            "#39d1e3",
+            "#6d427d"
+          ],
+          "blend": "normal",
+          "layer": "under",
+          "opacity": 0.9
+        },
+        "float": true
+      },
+      "blocks": [
+        {
+          "type": "text",
+          "variant": "body",
+          "content": {
+            "es": "Gavna es un proyecto personal para desarrollar aplicaciones relacionadas con música, diseño y producción audiovisual. Su producto lanzamiento es Gavna Music Composer, útil para ayudar en especial a compositores musicales que trabajan con DAW's.",
+            "en": "Gavna is a personal project dedicated to developing applications for music, design, and audiovisual production. Its flagship product is Gavna Music Composer, designed specifically to assist music composers working with DAWs.",
+            "esAuto": false
+          }
+        },
+        {
+          "type": "image",
+          "src": "projects/gavna/eng-memory-bank-1.jpg",
+          "caption": {
+            "es": "",
+            "en": "",
+            "esAuto": true
+          }
+        },
+        {
+          "type": "row",
+          "columns": 2,
+          "cells": [
+            {
+              "type": "button",
+              "label": {
+                "es": "SITIO WEB OFICIAL",
+                "en": "OFFICIAL WEBSITE",
+                "esAuto": false
+              },
+              "url": {
+                "es": "https://gavna.digital/es/",
+                "en": "https://gavna.digital",
+                "esAuto": false
+              },
+              "newTab": true
+            },
+            {
+              "type": "button",
+              "label": {
+                "es": "MICROSOFT STORE",
+                "en": "MICROSOFT STORE",
+                "esAuto": false
+              },
+              "url": {
+                "es": "https://apps.microsoft.com/detail/9nz202d59tvx?hl=en-US&gl=UY",
+                "en": "https://apps.microsoft.com/detail/9nz202d59tvx?hl=en-US&gl=UY",
+                "esAuto": false
+              },
+              "newTab": true
+            }
+          ]
+        }
+      ],
+      "kind": "page",
+      "aliases": [
+        "proj0005",
+        "keysense"
+      ]
+    },
+    {
+      "id": "proj0005",
+      "title": {
+        "es": "Spaceship",
+        "en": "",
+        "esAuto": false
+      },
+      "subtitle": {
+        "es": "",
+        "en": "",
+        "esAuto": true
+      },
+      "role": {
+        "es": "",
+        "en": "",
+        "esAuto": true
+      },
+      "year": "",
+      "theme": "dark",
+      "tags": {
+        "category": [],
+        "industry": []
+      },
+      "token": {
+        "image": "projects/proj0005/Asset-39.svg",
+        "width": 69,
+        "x": 0.556,
+        "y": 0.538,
+        "rotation": -12,
+        "float": true,
+        "watercolor": {
+          "on": true,
+          "colors": [
+            "#ff5221",
+            "#ff5221",
+            "#ff5221"
+          ],
+          "blend": "normal",
+          "layer": "under",
+          "opacity": 0.8
+        },
+        "strokeLoop": false
+      },
+      "blocks": [
+        {
+          "type": "image",
+          "src": "projects/proj0005/x0001.93-01.webp",
+          "caption": {
+            "es": "",
+            "en": "",
+            "esAuto": true
+          }
+        },
+        {
+          "type": "image",
+          "src": "projects/proj0005/spaceshop-shirt.webp",
+          "caption": {
+            "es": "",
+            "en": "",
+            "esAuto": true
+          },
+          "reveal": "right"
+        }
+      ],
+      "kind": "project"
+    }
+  ]
+}
