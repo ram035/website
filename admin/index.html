@@ -397,7 +397,6 @@
               <option value="si">Sí — se acerca y gira a un lado y al otro</option>
             </select>
           </label>
-          <p class="hint-line" id="floatHint" hidden></p>
           <label class="field">
             <span>Trazos animados al pasar el cursor</span>
             <select id="fStrokes">
@@ -413,7 +412,6 @@
             <input type="checkbox" id="fStrokesFree">
             Extender trazo libre (puede salirse de los bordes del SVG)
           </label>
-          <p class="hint-line" id="strokesHint" hidden></p>
           <p class="hint-line" id="inkHint" hidden>Se dibujan solos encima del token
             mientras el cursor está arriba: zigzags, bucles, rectas, círculos y
             espirales, sorteados cada vez. Conviven con la imagen de hover, y se
@@ -459,10 +457,6 @@
               <span>Intensidad <b id="outWcOp">100</b>%</span>
               <input type="range" id="fWcOp" min="20" max="100" step="5" value="100">
             </label>
-            <p class="hint-line">La mancha crece despacio, como si el papel absorbiera
-              la tinta, y al sacar el cursor se retira por donde vino. Cada vez sale
-              distinta: cambian la semilla del ruido, el tamaño y el lugar de cada
-              mancha. Se puede usar junto con los rayones o por separado.</p>
           </div>
 
           <label class="field">
