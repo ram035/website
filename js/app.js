@@ -390,7 +390,7 @@
       // en otro alcance y no ve la definición del proyecto.
       t.wcDef = def.watercolor;
       // En modo recortado, el alfa del SVG define hasta dónde llega la tinta.
-      if ((def.watercolor.freeExpansion === false || def.watercolor.freeExpansion === "false") && extOf(def.image) === "svg") {
+      if (def.watercolor.freeExpansion !== true && extOf(def.image) === "svg") {
         t.wcMask = el.querySelector(".token__img--base");
       }
     }
@@ -2216,7 +2216,7 @@
     });
 
     var mascaraDatos = null;
-    if ((cfg.freeExpansion === false || cfg.freeExpansion === "false") && t.wcMask && t.wcMask.complete && t.wcMask.naturalWidth) {
+    if (cfg.freeExpansion !== true && t.wcMask && t.wcMask.complete && t.wcMask.naturalWidth) {
       var mc = document.createElement("canvas");
       mc.width = cv.width;
       mc.height = cv.height;
@@ -2572,7 +2572,7 @@
 
   function prepararTrazos(t, el, src) {
     var defToken = (t.p && t.p.token) || {};
-    var loop = defToken.strokeLoop !== false;
+    var loop = defToken.strokeLoop === true;
     fetch(src).then(function (r) { if (!r.ok) throw 0; return r.text(); }).then(function (texto) {
       var svg = svgEnLinea(texto, "tz" + (++trazoUid) + "-");
       if (!svg) throw 0;
