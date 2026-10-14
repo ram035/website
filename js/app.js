@@ -389,6 +389,10 @@
       // La configuración viaja con el token: el handler de hover se engancha
       // en otro alcance y no ve la definición del proyecto.
       t.wcDef = def.watercolor;
+      // En modo recortado, el alfa del SVG define hasta dónde llega la tinta.
+      if (def.watercolor.freeExpansion === false && extOf(def.image) === "svg") {
+        t.wcMask = el.querySelector(".token__img--base");
+      }
     }
 
     // Capa de rayones, si el proyecto los pidió. Va encima de todo lo demás,
@@ -2211,7 +2215,16 @@
       fuentes.push({ x: cx + dx * s, y: cy + dy * s, r: alcance * az(.75, 1.25), demora: Math.min(o.demora, .12) });
     });
 
-    prepararMojado(t, g, cv.width, cv.height, res, fuentes);
+    var mascaraDatos = null;
+    if (cfg.freeExpansion === false && t.wcMask && t.wcMask.complete && t.wcMask.naturalWidth) {
+      var mc = document.createElement("canvas");
+      mc.width = cv.width;
+      mc.height = cv.height;
+      var mg = mc.getContext("2d");
+      mg.drawImage(t.wcMask, M * res, M * res, w * res, h * res);
+      mascaraDatos = mg.getImageData(0, 0, mc.width, mc.height);
+    }
+    prepararMojado(t, g, cv.width, cv.height, res, fuentes, mascaraDatos);
     t.wcSt.T = 0;
     // en el mismo instante: si no, se llega a ver un cuadro con la mancha entera
     mojar(t.wcSt);
@@ -2220,7 +2233,7 @@
 
   /* Mapa de llegada: cuándo alcanza el agua a cada píxel pintado. Además, el
      grano del papel: el pigmento se asienta distinto en cada poro. */
-  function prepararMojado(t, g, cw, ch, res, origenes) {
+  function prepararMojado(t, g, cw, ch, res, origenes, mascaraDatos) {
     var img = g.getImageData(0, 0, cw, ch);
     var d = img.data;
     var ruido = nuevoRuido(), grano = nuevoRuido();
@@ -2228,6 +2241,7 @@
     for (var y = 0; y < ch; y++) {
       for (var x = 0; x < cw; x++) {
         var p = (y * cw + x) * 4;
+        if (mascaraDatos) d[p + 3] = Math.round(d[p + 3] * mascaraDatos.data[p + 3] / 255);
         if (d[p + 3] < 3) { d[p + 3] = 0; continue; }
         var px = x / res, py = y / res;
         var l = Infinity;
