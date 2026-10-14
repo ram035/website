@@ -61,6 +61,10 @@ server.js              servidor local + API del panel (no se sube al hosting)
      repetir mientras el cursor está encima o reproducirse una sola vez y
      detenerse. El WebM además pesa poco y admite transparencia.
 
+     **Trazos animados:** en los SVG con líneas, el trazo se recorta por defecto
+     en el borde del SVG. La casilla **Extender trazo libre** deja que se salga
+     de esos bordes.
+
      **Sobre Safari y iPhone:** WebKit reproduce WebM pero ignora el canal alfa,
      así que un token recortado se vería como un rectángulo negro. Para que eso
      no pase nunca, el sitio detecta WebKit y directamente no crea el video: el

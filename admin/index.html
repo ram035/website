@@ -375,6 +375,11 @@
           </label>
 
           <label class="field">
+            <span>Rotación inicial <b id="outRot">0</b>°</span>
+            <input type="range" id="fRot" min="-180" max="180" step="1" value="0">
+          </label>
+
+          <label class="field">
             <span>Rayones al pasar el cursor</span>
             <select id="fHoverFx">
               <option value="none">Ninguno</option>
@@ -403,6 +408,10 @@
           <label class="toggle" id="strokesLoopWrap" hidden>
             <input type="checkbox" id="fStrokesLoop" checked>
             Repetir en bucle (loop) mientras el cursor está encima
+          </label>
+          <label class="toggle" id="strokesFreeWrap" hidden title="Sin marcar, el trazo se recorta en el borde del SVG: no se sale de él. Marcada, puede pasar los bordes.">
+            <input type="checkbox" id="fStrokesFree">
+            Extender trazo libre (puede salirse de los bordes del SVG)
           </label>
           <p class="hint-line" id="strokesHint" hidden></p>
           <p class="hint-line" id="inkHint" hidden>Se dibujan solos encima del token
@@ -458,10 +467,6 @@
           </label>
           <button type="button" class="btn btn--tiny" id="btnRealSize" disabled>Volver al tamaño real del archivo</button>
 
-          <label class="field">
-            <span>Rotación inicial <b id="outRot">0</b>°</span>
-            <input type="range" id="fRot" min="-180" max="180" step="1" value="0">
-          </label>
         </div>
 
         <div class="token-editor__right">
@@ -568,6 +573,6 @@
   <p class="celular__nota">390 × 844 · muestra lo guardado</p>
 </div>
 
-<script src="js/admin.js?v=78"></script>
+<script src="js/admin.js?v=79"></script>
 </body>
 </html>
