@@ -439,6 +439,7 @@
     $("fFloat").value = p.token.float ? "si" : "no";
     $("fStrokes").value = p.token.strokes === false ? "no" : "si";   // por defecto, sí
     $("fStrokesLoop").checked = p.token.strokeLoop !== false;         // por defecto, sí
+    $("fStrokesFree").checked = p.token.strokeFree === true;          // por defecto, no
     avisoTrazos(p);
     avisoFlotar(p);
 
@@ -573,12 +574,17 @@
   function avisoTrazos(p) {
     var aviso = $("strokesHint");
     var loopWrap = $("strokesLoopWrap");
+    var freeWrap = $("strokesFreeWrap");
     var src = (p.token && p.token.image) || "";
     var prendido = p.token.strokes !== false;   // por defecto, sí
     var esSvg = /\.svg($|\?)/i.test(src);
     if (loopWrap) {
       loopWrap.hidden = !prendido || !esSvg;
       $("fStrokesLoop").checked = p.token.strokeLoop !== false;
+    }
+    if (freeWrap) {
+      freeWrap.hidden = !prendido || !esSvg;
+      $("fStrokesFree").checked = p.token.strokeFree === true;
     }
     // prendido por defecto en un token que no es SVG: no hay nada que avisar
     aviso.hidden = !prendido || (p.token.strokes !== true && !esSvg);
@@ -622,6 +628,14 @@
     var p = current(); if (!p || !p.token) return;
     if (this.checked) delete p.token.strokeLoop; else p.token.strokeLoop = false;
     avisoTrazos(p);
+    markDirty();
+  });
+
+  // "Extender trazo libre": sin marcar (lo normal) el trazo se recorta en el
+  // borde del SVG y no se guarda nada; marcada queda escrito strokeFree: true
+  $("fStrokesFree").addEventListener("change", function () {
+    var p = current(); if (!p || !p.token) return;
+    if (this.checked) p.token.strokeFree = true; else delete p.token.strokeFree;
     markDirty();
   });
 
@@ -1002,8 +1016,10 @@
       // tiene por qué valer para este, y dejaba sus líneas a la vista.
       delete p.token.strokes;
       delete p.token.strokeLoop;
+      delete p.token.strokeFree;
       $("fStrokes").value = "si";
       $("fStrokesLoop").checked = true;
+      $("fStrokesFree").checked = false;
       avisoTrazos(p);
       ponerVista($("tokenPreview"), r.src);
       $("tokenPreview").hidden = false;

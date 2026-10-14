@@ -2528,6 +2528,9 @@
       var svg = svgEnLinea(texto, "tz" + (++trazoUid) + "-");
       if (!svg) throw 0;
       svg.setAttribute("class", "token__trazos");
+      // token.strokeFree: el trazo puede salirse de los bordes del SVG (sin la
+      // casilla, se recorta en ellos: ver .token__trazos en styles.css)
+      if (defToken.strokeFree === true) el.classList.add("trazos-libre");
       el.appendChild(svg);
       // las líneas: formas con trazo y sin relleno (se mira el estilo real)
       var FORMAS = "path, circle, ellipse, rect, polygon, polyline, line";

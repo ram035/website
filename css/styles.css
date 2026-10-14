@@ -138,10 +138,12 @@ body.is-project-open{ overflow:hidden; }
   inset:0;
   width:100%;
   height:100%;
-  overflow:visible;
+  overflow:hidden;      /* por defecto el trazo llega sólo hasta el borde del SVG */
   pointer-events:none;
   opacity:0;
 }
+/* "Extender trazo libre" (token.strokeFree): puede salirse de los bordes del SVG */
+.token.trazos-libre .token__trazos{ overflow:visible; }
 .token.trazos-on .token__trazos{ opacity:1; }
 .token.trazos-on .token__img--base,
 .token.trazos-espera .token__img--base{ opacity:0; }
