@@ -569,7 +569,7 @@
 
     if (loopWrap) {
       loopWrap.hidden = !prendido || !esSvg;
-      $("fStrokesLoop").checked = p.token.strokeLoop !== false;
+      $("fStrokesLoop").checked = p.token.strokeLoop === true;
     }
     if (freeWrap) {
       freeWrap.hidden = !prendido || !esSvg;
