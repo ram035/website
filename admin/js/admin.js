@@ -438,14 +438,14 @@
     $("inkHint").hidden      = $("fHoverFx").value !== "scribble";
     $("fFloat").value = p.token.float ? "si" : "no";
     $("fStrokes").value = p.token.strokes === false ? "no" : "si";   // por defecto, sí
-    $("fStrokesLoop").checked = p.token.strokeLoop !== false;         // por defecto, sí
+    $("fStrokesLoop").checked = p.token.strokeLoop === true;          // por defecto, no
     $("fStrokesFree").checked = p.token.strokeFree === true;          // por defecto, no
     actualizarControlesTrazos(p);
 
     var wc = p.token.watercolor || {};
     var tintas = Array.isArray(wc.colors) ? wc.colors : [];
     $("fWcOn").value    = wc.on ? "si" : "no";
-    $("fWcFree").checked = wc.freeExpansion !== false; // por defecto, expansión libre
+    $("fWcFree").checked = wc.freeExpansion === true; // por defecto, expansión limitada al SVG
     // por defecto, las tres en #ff5221; apagada, muestra las que tendrá al prenderla
     if (!wc.on) tintas = [];
     $("fWc1").value     = tinta(tintas[0], TINTA_DEFECTO);
@@ -587,7 +587,7 @@
 
   $("fStrokesLoop").addEventListener("change", function () {
     var p = current(); if (!p || !p.token) return;
-    if (this.checked) delete p.token.strokeLoop; else p.token.strokeLoop = false;
+    if (this.checked) p.token.strokeLoop = true; else delete p.token.strokeLoop;
     actualizarControlesTrazos(p);
     markDirty();
   });
@@ -655,7 +655,7 @@
 
   $("fWcFree").addEventListener("change", function () {
     var wc = acuarela(); if (!wc) return;
-    wc.freeExpansion = this.checked;
+    if (this.checked) wc.freeExpansion = true; else delete wc.freeExpansion;
     markDirty();
   });
 
@@ -985,7 +985,7 @@
       delete p.token.strokeLoop;
       delete p.token.strokeFree;
       $("fStrokes").value = "si";
-      $("fStrokesLoop").checked = true;
+      $("fStrokesLoop").checked = false;
       $("fStrokesFree").checked = false;
       actualizarControlesTrazos(p);
       ponerVista($("tokenPreview"), r.src);
