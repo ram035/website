@@ -492,8 +492,11 @@
         var sh = parseFloat(svg.getAttribute("height")) || 100;
         svg.setAttribute("viewBox", "0 0 " + sw + " " + sh);
       }
+      var vb = (svg.getAttribute("viewBox") || "0 0 100 100").trim().split(/[ ,]+/).map(Number);
+      var vw = vb.length === 4 && vb[2] > 0 ? vb[2] : 100;
+      var vh = vb.length === 4 && vb[3] > 0 ? vb[3] : 100;
       svg.setAttribute("width", "1000");
-      svg.setAttribute("height", "1000");
+      svg.setAttribute("height", String(1000 * vh / vw));
 
       var imagen = new Image();
       imagen.onload = function () {
