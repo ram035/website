@@ -440,8 +440,7 @@
     $("fStrokes").value = p.token.strokes === false ? "no" : "si";   // por defecto, sí
     $("fStrokesLoop").checked = p.token.strokeLoop !== false;         // por defecto, sí
     $("fStrokesFree").checked = p.token.strokeFree === true;          // por defecto, no
-    avisoTrazos(p);
-    avisoFlotar(p);
+    actualizarControlesTrazos(p);
 
     var wc = p.token.watercolor || {};
     var tintas = Array.isArray(wc.colors) ? wc.colors : [];
@@ -561,24 +560,13 @@
     markDirty();
   }
 
-  /* Baile 3D: el ícono entero se acerca y gira a un lado y al otro. Sirve
-     para cualquier imagen de token. */
-  function avisoFlotar(p) {
-    var aviso = $("floatHint");
-    aviso.hidden = !p.token.float;
-    aviso.textContent = "Con el cursor encima, el ícono se acerca un poco y gira en 3D " +
-                        "hacia un lado y hacia el otro, en bucle; al salir vuelve a su lugar.";
-    aviso.classList.remove("is-alerta");
-  }
-  /* Trazos animados: sólo SVG, y sólo si conserva líneas como trazos (sin
-     relleno). Se revisa el archivo y se avisa si no hay nada que animar. */
-  function avisoTrazos(p) {
-    var aviso = $("strokesHint");
+  function actualizarControlesTrazos(p) {
     var loopWrap = $("strokesLoopWrap");
     var freeWrap = $("strokesFreeWrap");
     var src = (p.token && p.token.image) || "";
-    var prendido = p.token.strokes !== false;   // por defecto, sí
+    var prendido = p.token.strokes !== false;
     var esSvg = /\.svg($|\?)/i.test(src);
+
     if (loopWrap) {
       loopWrap.hidden = !prendido || !esSvg;
       $("fStrokesLoop").checked = p.token.strokeLoop !== false;
@@ -587,48 +575,20 @@
       freeWrap.hidden = !prendido || !esSvg;
       $("fStrokesFree").checked = p.token.strokeFree === true;
     }
-    // prendido por defecto en un token que no es SVG: no hay nada que avisar
-    aviso.hidden = !prendido || (p.token.strokes !== true && !esSvg);
-    aviso.classList.remove("is-alerta");
-    if (aviso.hidden) return;
-    if (!esSvg) {
-      aviso.textContent = "Necesita que el token sea un .svg.";
-      aviso.classList.add("is-alerta");
-      return;
-    }
-    aviso.textContent = "Revisando las líneas del SVG…";
-    fetch(rootSrc(src), { cache: "no-store" }).then(function (r) { return r.text(); }).then(function (texto) {
-      var caja = document.createElement("div");
-      caja.style.cssText = "position:absolute;left:-9999px;top:0;width:100px;height:100px";
-      caja.innerHTML = texto.replace(/<\?xml[^>]*>/, "").replace(/<script[\s\S]*?<\/script>/gi, "");
-      document.body.appendChild(caja);
-      var n = Array.prototype.filter.call(caja.querySelectorAll("path, circle, ellipse, rect, polygon, polyline, line"), function (e) {
-        var cs = getComputedStyle(e);
-        return cs.stroke && cs.stroke !== "none" && (cs.fill === "none" || cs.fillOpacity === "0");
-      }).length;
-      caja.remove();
-      if (!current() || current() !== p) return;
-      var enBucle = p.token.strokeLoop !== false;
-      aviso.textContent = n
-        ? (enBucle
-            ? "Con el cursor encima, sus " + n + (n === 1 ? " línea se borra" : " líneas se borran") + " y se vuelve" + (n === 1 ? "" : "n") + " a dibujar, escalonadas y en bucle; al salir, las que iban por la mitad terminan rápido y no empieza ninguna más."
-            : "Con el cursor encima, sus " + n + (n === 1 ? " línea se dibuja" : " líneas se dibujan") + " hasta completarse y se detiene" + (n === 1 ? "" : "n") + "; al salir, regresa" + (n === 1 ? "" : "n") + " en reversa a su posición original.")
-        : "Este SVG no tiene líneas sueltas (quizás se expandieron en Illustrator): el token se ve tal cual. Podés dejarlo en «Sí»: si cambiás a un archivo con líneas, se animan solas.";
-      aviso.classList.remove("is-alerta");
-    }).catch(function () { aviso.textContent = "No se pudo revisar el SVG."; });
   }
+
   $("fStrokes").addEventListener("change", function () {
     var p = current(); if (!p) return;
     // "sí" es el valor por defecto: no se guarda; "no" queda escrito
     if (this.value === "no") p.token.strokes = false; else delete p.token.strokes;
-    avisoTrazos(p);
+    actualizarControlesTrazos(p);
     markDirty();
   });
 
   $("fStrokesLoop").addEventListener("change", function () {
     var p = current(); if (!p || !p.token) return;
     if (this.checked) delete p.token.strokeLoop; else p.token.strokeLoop = false;
-    avisoTrazos(p);
+    actualizarControlesTrazos(p);
     markDirty();
   });
 
@@ -643,7 +603,7 @@
   $("fFloat").addEventListener("change", function () {
     var p = current(); if (!p) return;
     if (this.value === "si") p.token.float = true; else delete p.token.float;
-    avisoFlotar(p);
+    
     markDirty();
   });
 
@@ -1027,7 +987,7 @@
       $("fStrokes").value = "si";
       $("fStrokesLoop").checked = true;
       $("fStrokesFree").checked = false;
-      avisoTrazos(p);
+      actualizarControlesTrazos(p);
       ponerVista($("tokenPreview"), r.src);
       $("tokenPreview").hidden = false;
       ponerVista(elMiniImg, r.src);
