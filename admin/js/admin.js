@@ -446,6 +446,7 @@
     var wc = p.token.watercolor || {};
     var tintas = Array.isArray(wc.colors) ? wc.colors : [];
     $("fWcOn").value    = wc.on ? "si" : "no";
+    $("fWcFree").checked = wc.freeExpansion !== false; // por defecto, expansión libre
     // por defecto, las tres en #ff5221; apagada, muestra las que tendrá al prenderla
     if (!wc.on) tintas = [];
     $("fWc1").value     = tinta(tintas[0], TINTA_DEFECTO);
@@ -689,6 +690,12 @@
       $("fWcLayer").value = "under";
     }
     $("wcWrap").hidden = !wc.on;
+    markDirty();
+  });
+
+  $("fWcFree").addEventListener("change", function () {
+    var wc = acuarela(); if (!wc) return;
+    wc.freeExpansion = this.checked;
     markDirty();
   });
 
