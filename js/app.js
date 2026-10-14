@@ -389,9 +389,11 @@
       // La configuración viaja con el token: el handler de hover se engancha
       // en otro alcance y no ve la definición del proyecto.
       t.wcDef = def.watercolor;
-      // En modo recortado, el alfa del SVG define hasta dónde llega la tinta.
+      // En modo recortado, busca una shape/capa llamada "mask" dentro del SVG.
+      // Si no existe o no se puede cargar, conserva la máscara automática anterior.
       if ((def.watercolor.freeExpansion === false || def.watercolor.freeExpansion === "false") && extOf(def.image) === "svg") {
-        t.wcMask = el.querySelector(".token__img--base");
+        t.wcMaskBase = el.querySelector(".token__img--base");
+        cargarMascaraSVG(t, def.image);
       }
     }
 
@@ -444,6 +446,75 @@
     var s = String(src || "").split("?")[0].split("#")[0];
     var i = s.lastIndexOf(".");
     return i < 0 ? "" : s.slice(i + 1).toLowerCase();
+  }
+
+  /* Busca una shape o capa con id="mask", name="mask" o etiqueta de capa
+     "mask" (por ejemplo, inkscape:label="mask"). Se renderiza como una imagen
+     blanca independiente para usar su alfa como máscara real de la acuarela. */
+  function cargarMascaraSVG(t, src) {
+    t.wcMaskLoading = true;
+    fetch(src).then(function (r) {
+      if (!r.ok) throw new Error("No se pudo cargar el SVG de la máscara");
+      return r.text();
+    }).then(function (texto) {
+      var doc = new DOMParser().parseFromString(texto, "image/svg+xml");
+      var svg = doc.documentElement;
+      if (!svg || svg.nodeName.toLowerCase() !== "svg" || doc.querySelector("parsererror")) throw new Error("SVG inválido");
+
+      var todos = Array.prototype.slice.call(svg.querySelectorAll("*"));
+      var objetivo = todos.filter(function (n) {
+        if ((n.getAttribute("id") || "").toLowerCase() === "mask" ||
+            (n.getAttribute("name") || "").toLowerCase() === "mask") return true;
+        return Array.prototype.some.call(n.attributes, function (a) {
+          return /(^|:)label$/i.test(a.name) && (a.value || "").trim().toLowerCase() === "mask";
+        });
+      })[0];
+      if (!objetivo) throw new Error('El SVG no contiene una shape llamada "mask"');
+
+      var conservar = new Set();
+      for (var n = objetivo; n && n !== svg; n = n.parentNode) conservar.add(n);
+      todos.forEach(function (n) {
+        if (n === objetivo || objetivo.contains(n) || conservar.has(n) ||
+            /^(defs|style|title|desc|linearGradient|radialGradient|pattern|clipPath)$/i.test(n.tagName)) return;
+        n.remove();
+      });
+
+      // La máscara define el área permitida, no sus colores originales.
+      [objetivo].concat(Array.prototype.slice.call(objetivo.querySelectorAll("*"))).forEach(function (n) {
+        n.style.setProperty("fill", "#fff", "important");
+        n.style.setProperty("fill-opacity", "1", "important");
+        n.style.setProperty("stroke", "#fff", "important");
+        n.style.setProperty("stroke-opacity", "1", "important");
+      });
+      svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+      if (!svg.getAttribute("viewBox")) {
+        var sw = parseFloat(svg.getAttribute("width")) || 100;
+        var sh = parseFloat(svg.getAttribute("height")) || 100;
+        svg.setAttribute("viewBox", "0 0 " + sw + " " + sh);
+      }
+      svg.setAttribute("width", "1000");
+      svg.setAttribute("height", "1000");
+
+      var imagen = new Image();
+      imagen.onload = function () {
+        t.wcMask = imagen;
+        t.wcMaskNamed = true;
+        t.wcMaskLoading = false;
+        if (t.el && t.el.classList.contains("is-hover") && !t.el.classList.contains("is-active")) pintarAcuarela(t);
+      };
+      imagen.onerror = function () {
+        t.wcMask = t.wcMaskBase;
+        t.wcMaskNamed = false;
+        t.wcMaskLoading = false;
+        if (t.el && t.el.classList.contains("is-hover") && !t.el.classList.contains("is-active")) pintarAcuarela(t);
+      };
+      imagen.src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(new XMLSerializer().serializeToString(svg));
+    }).catch(function () {
+      t.wcMask = t.wcMaskBase;
+      t.wcMaskNamed = false;
+      t.wcMaskLoading = false;
+      if (t.el && t.el.classList.contains("is-hover") && !t.el.classList.contains("is-active")) pintarAcuarela(t);
+    });
   }
 
   function isLottie(src) { var e = extOf(src); return e === "json" || e === "lottie"; }
@@ -2216,21 +2287,31 @@
     });
 
     var mascaraDatos = null;
+    if ((cfg.freeExpansion === false || cfg.freeExpansion === "false") && t.wcMaskLoading) {
+      cv.classList.remove("is-on");
+      return;
+    }
     if ((cfg.freeExpansion === false || cfg.freeExpansion === "false") && t.wcMask && t.wcMask.complete && t.wcMask.naturalWidth) {
       var mc = document.createElement("canvas");
       mc.width = cv.width;
       mc.height = cv.height;
       var mg = mc.getContext("2d");
-      var maskX = t.wcMask.offsetLeft || 0;
-      var maskY = t.wcMask.offsetTop || 0;
-      var maskW = t.wcMask.offsetWidth || w;
-      var maskH = t.wcMask.offsetHeight || h;
-      mg.drawImage(t.wcMask, (M + maskX) * res, (M + maskY) * res, maskW * res, maskH * res);
+      if (t.wcMaskNamed) {
+        // La máscara nombrada ocupa el viewBox completo del SVG original.
+        mg.drawImage(t.wcMask, M * res, M * res, w * res, h * res);
+      } else {
+        var maskX = t.wcMask.offsetLeft || 0;
+        var maskY = t.wcMask.offsetTop || 0;
+        var maskW = t.wcMask.offsetWidth || w;
+        var maskH = t.wcMask.offsetHeight || h;
+        mg.drawImage(t.wcMask, (M + maskX) * res, (M + maskY) * res, maskW * res, maskH * res);
+      }
       mascaraDatos = mg.getImageData(0, 0, mc.width, mc.height);
 
-      // Completa las zonas transparentes encerradas por los contornos del SVG.
-      // Así la mancha cubre el interior del icono, pero no escapa al exterior.
+      // La máscara nombrada ya representa directamente la zona permitida.
+      // Sólo el método antiguo necesita rellenar las áreas cerradas del contorno.
       var md = mascaraDatos.data, mw = mc.width, mh = mc.height;
+      if (!t.wcMaskNamed) {
       var exterior = new Uint8Array(mw * mh);
       var pila = new Int32Array(mw * mh), tope = 0;
       function agregarExterior(px, py) {
@@ -2257,6 +2338,7 @@
       for (var mi = 0; mi < mw * mh; mi++) {
         var ai = mi * 4 + 3;
         if (md[ai] === 0 && !exterior[mi]) md[ai] = 255;
+      }
       }
     }
     prepararMojado(t, g, cv.width, cv.height, res, fuentes, mascaraDatos);
