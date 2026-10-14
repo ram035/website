@@ -1342,7 +1342,14 @@
       // Es un efecto de hover: en cuanto se agarra el token, se cortan.
       if (t.scribble) cortarRayones(t);
       if (t.baile) bailar(t, 0);          // agarrarlo lo baja
-      if (t.wc) borrarAcuarela(t);
+      // Al agarrarlo, la acuarela termina de expandirse y queda en hold
+      // durante el arrastre; no se borra de golpe.
+      if (t.wc && t.wcSt) {
+        var wcFin = 1 + WC_SUAVE;
+        var wcRestante = Math.max(180, WC_EXPANDE * (wcFin - t.wcSt.T) / wcFin);
+        llevarAcuarela(t, wcFin, wcRestante);
+        t.wcDragHold = true;
+      }
       toFront(t);
       try { el.setPointerCapture(e.pointerId); } catch (err) {}
       el.classList.add("is-active", "is-hover");
@@ -1445,6 +1452,11 @@
                    performance.now() - drag.inicio < CLICK_MAX_MS;
 
       drag = null;
+      // Al soltar, la acuarela vuelve desde el final del ciclo hasta el inicio.
+      if (t.wc && t.wcDragHold) {
+        t.wcDragHold = false;
+        secarAcuarela(t, true);
+      }
       // Sólo lo deja agarrado si en este tiempo lo volvieron a agarrar a ÉL.
       // Antes miraba si había algún arrastre, de cualquier token: agarrar otro
       // dentro de los 400 ms dejaba a este marcado para siempre, arriba de
@@ -2358,12 +2370,12 @@
     st.raf = window.requestAnimationFrame(cuadro);
   }
 
-  function secarAcuarela(t) {
+  function secarAcuarela(t, forzar) {
     var st = t.wcSt;
     if (!st) return;
     var dur = 1600 * Math.max(.2, (st.T + WC_SUAVE) / (1 + 2 * WC_SUAVE));
     llevarAcuarela(t, -WC_SUAVE, dur, function () {
-      if (!t.el.classList.contains("is-hover")) borrarAcuarela(t);
+      if (forzar || !t.el.classList.contains("is-hover")) borrarAcuarela(t);
     });
   }
 
